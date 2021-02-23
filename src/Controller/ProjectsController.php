@@ -21,7 +21,7 @@ class ProjectsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Companies', 'Personnels', 'AddUsers', 'AddUpdates']
+            'contain' => ['Companies', 'Personnels', 'Users']
         ];
         $projects = $this->paginate($this->Projects);
 
@@ -38,7 +38,7 @@ class ProjectsController extends AppController
     public function view($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['Companies', 'Personnels', 'AddUsers', 'AddUpdates', 'Estimates', 'Tasks']
+            'contain' => ['Companies', 'Personnels', 'Users', 'Estimates', 'Tasks']
         ]);
 
         $this->set('project', $project);
@@ -63,8 +63,8 @@ class ProjectsController extends AppController
         }
         $companies = $this->Projects->Companies->find('list', ['limit' => 200]);
         $personnels = $this->Projects->Personnels->find('list', ['limit' => 200]);
-        $addUsers = $this->Projects->AddUsers->find('list', ['limit' => 200]);
-        $addUpdates = $this->Projects->AddUpdates->find('list', ['limit' => 200]);
+        $addUsers = $this->Projects->Users->find('list', ['limit' => 200]);
+        $addUpdates = $this->Projects->Users->find('list', ['limit' => 200]);
         $this->set(compact('project', 'companies', 'personnels', 'addUsers', 'addUpdates'));
     }
 
@@ -91,8 +91,8 @@ class ProjectsController extends AppController
         }
         $companies = $this->Projects->Companies->find('list', ['limit' => 200]);
         $personnels = $this->Projects->Personnels->find('list', ['limit' => 200]);
-        $addUsers = $this->Projects->AddUsers->find('list', ['limit' => 200]);
-        $addUpdates = $this->Projects->AddUpdates->find('list', ['limit' => 200]);
+        $addUsers = $this->Projects->Users->find('list', ['limit' => 200]);
+        $addUpdates = $this->Projects->Users->find('list', ['limit' => 200]);
         $this->set(compact('project', 'companies', 'personnels', 'addUsers', 'addUpdates'));
     }
 

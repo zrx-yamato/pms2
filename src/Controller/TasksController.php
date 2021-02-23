@@ -21,7 +21,7 @@ class TasksController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Statuses', 'Projects', 'Personnels', 'AddUsers', 'AddUpdates']
+            'contain' => ['Statuses', 'Projects', 'Personnels', 'Users']
         ];
         $tasks = $this->paginate($this->Tasks);
 
@@ -38,7 +38,7 @@ class TasksController extends AppController
     public function view($id = null)
     {
         $task = $this->Tasks->get($id, [
-            'contain' => ['Statuses', 'Projects', 'Personnels', 'AddUsers', 'AddUpdates']
+            'contain' => ['Statuses', 'Projects', 'Personnels']
         ]);
 
         $this->set('task', $task);
@@ -64,8 +64,8 @@ class TasksController extends AppController
         $statuses = $this->Tasks->Statuses->find('list', ['limit' => 200]);
         $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
         $personnels = $this->Tasks->Personnels->find('list', ['limit' => 200]);
-        $addUsers = $this->Tasks->AddUsers->find('list', ['limit' => 200]);
-        $addUpdates = $this->Tasks->AddUpdates->find('list', ['limit' => 200]);
+        $addUsers = $this->Tasks->Users->find('list', ['limit' => 200]);
+        $addUpdates = $this->Tasks->Users->find('list', ['limit' => 200]);
         $this->set(compact('task', 'statuses', 'projects', 'personnels', 'addUsers', 'addUpdates'));
     }
 
@@ -93,8 +93,8 @@ class TasksController extends AppController
         $statuses = $this->Tasks->Statuses->find('list', ['limit' => 200]);
         $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
         $personnels = $this->Tasks->Personnels->find('list', ['limit' => 200]);
-        $addUsers = $this->Tasks->AddUsers->find('list', ['limit' => 200]);
-        $addUpdates = $this->Tasks->AddUpdates->find('list', ['limit' => 200]);
+        $addUsers = $this->Tasks->Users->find('list', ['limit' => 200]);
+        $addUpdates = $this->Tasks->Users->find('list', ['limit' => 200]);
         $this->set(compact('task', 'statuses', 'projects', 'personnels', 'addUsers', 'addUpdates'));
     }
 

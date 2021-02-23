@@ -11,8 +11,8 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\CompaniesTable|\Cake\ORM\Association\BelongsTo $Companies
  * @property \App\Model\Table\PersonnelsTable|\Cake\ORM\Association\BelongsTo $Personnels
- * @property \App\Model\Table\AddUsersTable|\Cake\ORM\Association\BelongsTo $AddUsers
- * @property \App\Model\Table\AddUpdatesTable|\Cake\ORM\Association\BelongsTo $AddUpdates
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $AddUsers
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $AddUpdates
  * @property \App\Model\Table\EstimatesTable|\Cake\ORM\Association\HasMany $Estimates
  * @property \App\Model\Table\TasksTable|\Cake\ORM\Association\HasMany $Tasks
  *
@@ -49,11 +49,11 @@ class ProjectsTable extends Table
             'foreignKey' => 'personnel_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('AddUsers', [
+        $this->belongsTo('Users', [
             'foreignKey' => 'add_user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('AddUpdates', [
+        $this->belongsTo('Users', [
             'foreignKey' => 'add_update_id',
             'joinType' => 'INNER'
         ]);
@@ -128,8 +128,8 @@ class ProjectsTable extends Table
     {
         $rules->add($rules->existsIn(['company_id'], 'Companies'));
         $rules->add($rules->existsIn(['personnel_id'], 'Personnels'));
-        $rules->add($rules->existsIn(['add_user_id'], 'AddUsers'));
-        $rules->add($rules->existsIn(['add_update_id'], 'AddUpdates'));
+        $rules->add($rules->existsIn(['add_user_id'], 'Users'));
+        $rules->add($rules->existsIn(['add_update_id'], 'Users'));
 
         return $rules;
     }

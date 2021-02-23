@@ -21,7 +21,7 @@ class EstimatesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Projects', 'AddUsers', 'UpdateUsers', 'Statuses']
+            'contain' => ['Projects', 'Users', 'Statuses']
         ];
         $estimates = $this->paginate($this->Estimates);
 
@@ -38,7 +38,7 @@ class EstimatesController extends AppController
     public function view($id = null)
     {
         $estimate = $this->Estimates->get($id, [
-            'contain' => ['Projects', 'AddUsers', 'UpdateUsers', 'Statuses']
+            'contain' => ['Projects', 'Users', 'Statuses']
         ]);
 
         $this->set('estimate', $estimate);
@@ -62,8 +62,8 @@ class EstimatesController extends AppController
             $this->Flash->error(__('The estimate could not be saved. Please, try again.'));
         }
         $projects = $this->Estimates->Projects->find('list', ['limit' => 200]);
-        $addUsers = $this->Estimates->AddUsers->find('list', ['limit' => 200]);
-        $updateUsers = $this->Estimates->UpdateUsers->find('list', ['limit' => 200]);
+        $addUsers = $this->Estimates->Users->find('list', ['limit' => 200]);
+        $updateUsers = $this->Estimates->Users->find('list', ['limit' => 200]);
         $statuses = $this->Estimates->Statuses->find('list', ['limit' => 200]);
         $this->set(compact('estimate', 'projects', 'addUsers', 'updateUsers', 'statuses'));
     }
@@ -90,8 +90,8 @@ class EstimatesController extends AppController
             $this->Flash->error(__('The estimate could not be saved. Please, try again.'));
         }
         $projects = $this->Estimates->Projects->find('list', ['limit' => 200]);
-        $addUsers = $this->Estimates->AddUsers->find('list', ['limit' => 200]);
-        $updateUsers = $this->Estimates->UpdateUsers->find('list', ['limit' => 200]);
+        $addUsers = $this->Estimates->Users->find('list', ['limit' => 200]);
+        $updateUsers = $this->Estimates->Users->find('list', ['limit' => 200]);
         $statuses = $this->Estimates->Statuses->find('list', ['limit' => 200]);
         $this->set(compact('estimate', 'projects', 'addUsers', 'updateUsers', 'statuses'));
     }

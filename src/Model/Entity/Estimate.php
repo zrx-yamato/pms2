@@ -19,7 +19,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $update_at
  *
  * @property \App\Model\Entity\Project $project
- * @property \App\Model\Entity\AddUser $add_user
+ * @property \App\Model\Entity\User $add_user
  * @property \App\Model\Entity\UpdateUser $update_user
  * @property \App\Model\Entity\Status $status
  */

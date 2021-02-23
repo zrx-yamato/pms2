@@ -10,8 +10,8 @@ use Cake\Validation\Validator;
  * Estimates Model
  *
  * @property \App\Model\Table\ProjectsTable|\Cake\ORM\Association\BelongsTo $Projects
- * @property \App\Model\Table\AddUsersTable|\Cake\ORM\Association\BelongsTo $AddUsers
- * @property \App\Model\Table\UpdateUsersTable|\Cake\ORM\Association\BelongsTo $UpdateUsers
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $AddUsers
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $UpdateUsers
  * @property \App\Model\Table\StatusesTable|\Cake\ORM\Association\BelongsTo $Statuses
  *
  * @method \App\Model\Entity\Estimate get($primaryKey, $options = [])
@@ -43,11 +43,11 @@ class EstimatesTable extends Table
             'foreignKey' => 'project_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('AddUsers', [
+        $this->belongsTo('Users', [
             'foreignKey' => 'add_user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('UpdateUsers', [
+        $this->belongsTo('Users', [
             'foreignKey' => 'update_user_id',
             'joinType' => 'INNER'
         ]);
@@ -113,8 +113,8 @@ class EstimatesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
-        $rules->add($rules->existsIn(['add_user_id'], 'AddUsers'));
-        $rules->add($rules->existsIn(['update_user_id'], 'UpdateUsers'));
+        $rules->add($rules->existsIn(['add_user_id'], 'Users'));
+        $rules->add($rules->existsIn(['update_user_id'], 'Users'));
         $rules->add($rules->existsIn(['status_id'], 'Statuses'));
 
         return $rules;
