@@ -10,7 +10,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\Estimate[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class EstimatesController extends AppController
+class EstimatesController extends AuthController
 {
 
     /**

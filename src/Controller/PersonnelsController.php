@@ -10,7 +10,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\Personnel[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class PersonnelsController extends AppController
+class PersonnelsController extends AuthController
 {
 
     /**

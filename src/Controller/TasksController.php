@@ -10,7 +10,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\Task[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class TasksController extends AppController
+class TasksController extends AuthController
 {
 
     /**

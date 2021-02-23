@@ -3,6 +3,9 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+use Cake\Auth\DefaultPasswordHasher; 
+use Cake\Event\Event;
+
 /**
  * Users Controller
  *
@@ -10,7 +13,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class UsersController extends AppController
+class UsersController extends AuthController
 {
 
     /**
