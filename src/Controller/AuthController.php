@@ -31,8 +31,8 @@ class AuthController extends AppController
 				'action' => 'index'
 			],
 			'logoutRedirect' => [
-				'controller' => 'Projects',
-				'action' => 'index',
+				'controller' => 'Auth',
+				'action' => 'login',
 			],
 			'authError' => 'ログインしてください。',
 		]);
@@ -62,7 +62,7 @@ class AuthController extends AppController
 	// 認証をしないページの設定
 	public function beforeFilter(Event $event) {
 		parent::beforeFilter($event);
-		$this->Auth->allow([]);
+		$this->Auth->allow(['login']);
 	}
 	
 	// 認証時のロールの処理
