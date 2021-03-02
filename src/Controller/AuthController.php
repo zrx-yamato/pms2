@@ -36,6 +36,9 @@ class AuthController extends AppController
 			],
 			'authError' => 'ログインしてください。',
 		]);
+
+		// ログインユーザー情報
+		$this->set('authuser', $this->Auth->user());
 	}
 
 	// ログイン処理
