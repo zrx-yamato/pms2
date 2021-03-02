@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAC;EACT,SAAS,EAAE,aAAa;CACzB;;AAED,AAAA,YAAY,CAAC;EACX,SAAS,EAAE,cAAc;CAC1B",
+    "sources": [
+        "rotate.scss"
+    ],
+    "names": [],
+    "file": "rotate.css"
+}

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,SAAS,CAAC;EACR,QAAQ,EAAE,iBAAiB;CAC5B",
+    "sources": [
+        "display.scss"
+    ],
+    "names": [],
+    "file": "display.css"
+}
