@@ -25,11 +25,12 @@ $cakeDescription = '案件管理システム';
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
+    <!-- css -->
     <?= $this->Html->css('vendor/fontawesome-free/css/all.min') ?>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <?= $this->Html->css('scss/sb-admin-2') ?>
     <link href="https://fonts.googleapis.com/css?family=Raleway:500i|Roboto:300,400,700|Roboto+Mono" rel="stylesheet">
-
+    <?= $this->Html->css('scss/sb-admin-2') ?>
+    <?= $this->Html->css('scss/original') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
