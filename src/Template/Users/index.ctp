@@ -37,7 +37,7 @@
                     <td><?= h($user->update_at) ?></td>
                     <td class="actions">
                         <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $user->id], ['escape' => false])?></span>
-                        <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'view', $user->id], ['escape' => false])?></span>
+                        <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $user->id], ['escape' => false])?></span>
                         <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['action' => 'delete', $user->id], ['confirm' => __('ID{0}を本当に削除しますか？', $user->id),'escape' => false]) ?></span>
                     </td>
                 </tr>
