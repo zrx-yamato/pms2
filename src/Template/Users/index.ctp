@@ -3,61 +3,57 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
+	$this->assign('title', 'ユーザー');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?></li>
-    </ul>
+<nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
+    <?= $this->Html->link('
+        <span class="icon text-white-50"><i class="fas fa-user-plus"></i></span>
+        <span class="text">ユーザー追加</span>', ['action' => 'add'], ['class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
 <div class="users index large-9 medium-8 columns content">
-    <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('mail') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('tel') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('role_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('is_delete') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('create_at') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('update_at') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($users as $user): ?>
-            <tr>
-                <td><?= $this->Number->format($user->id) ?></td>
-                <td><?= h($user->name) ?></td>
-                <td><?= h($user->password) ?></td>
-                <td><?= h($user->mail) ?></td>
-                <td><?= h($user->tel) ?></td>
-                <td><?= $user->has('role') ? $this->Html->link($user->role->name, ['controller' => 'Roles', 'action' => 'view', $user->role->id]) : '' ?></td>
-                <td><?= h($user->is_delete) ?></td>
-                <td><?= h($user->create_at) ?></td>
-                <td><?= h($user->update_at) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+    <div class="table-responsive">
+        <table class="table table-bordered dataTable" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col"><?= $this->Paginator->sort('id', 'ID') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('name', '名前') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('mail', 'メール') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('tel', 'TEL') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('role_id', '権限') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('create_at', '登録日') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('update_at', '更新日') ?></th>
+                    <th scope="col" class="actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?= $this->Number->format($user->id) ?></td>
+                    <td><?= h($user->name) ?></td>
+                    <td><?= h($user->mail) ?></td>
+                    <td><?= h($user->tel) ?></td>
+                    <td><?= $user->has('role') ? $this->Html->link($user->role->name, ['controller' => 'Roles', 'action' => 'view', $user->role->id]) : '' ?></td>
+                    <td><?= h($user->create_at) ?></td>
+                    <td><?= h($user->update_at) ?></td>
+                    <td class="actions">
+                        <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $user->id], ['escape' => false])?></span>
+                        <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'view', $user->id], ['escape' => false])?></span>
+                        <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['action' => 'delete', $user->id], ['confirm' => __('ID{0}を本当に削除しますか？', $user->id),'escape' => false]) ?></span>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <div class="paginator d-flex justify-content-between">
+            <p><?= $this->Paginator->counter(['format' => __('全 {{count}} 件中 {{current}} 件表示（ページ {{page}} / {{pages}}） ')]) ?></p>
+            
+            <ul class="pagination">
+                <?= $this->Paginator->first('<< ') ?>
+                <?= $this->Paginator->prev('< ') ?>
+                <?= $this->Paginator->numbers() ?>
+                <?= $this->Paginator->next(' >') ?>
+                <?= $this->Paginator->last(' >>') ?>
+            </ul>
+        </div>
     </div>
 </div>
