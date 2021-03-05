@@ -1,3 +1,20 @@
+fieldset{
+    margin-bottom: 3rem;
+}
+label{
+    margin: 0.5rem 0 0.1rem;
+}
+.message{
+    &.success{
+        margin-bottom: 1rem;
+        padding: 10px;
+        color: #fff;
+        text-align: center;
+        background: #f6c23e;
+        box-shadow: 0 0 6px #bfbfbf;
+        border-radius: 0.25rem;
+    }
+}
 .pagination{
     li{
         a{
