@@ -47,9 +47,9 @@ $cakeDescription = '案件管理システム';
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    A
+                    PMS
                 </div>
-                <div class="sidebar-brand-text mx-3">案件管理システム</div>
+                <div class="sidebar-brand-text mx-1">案件管理システム</div>
             </a>
 
             <!-- Divider -->
@@ -109,9 +109,9 @@ $cakeDescription = '案件管理システム';
                 <div id="collapseSetting" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">メイン設定:</h6>
-                        <?= $this->Html->link('ユーザー', ['controller' => 'Users'], ['class' => 'collapse-item']);?>
-                        <?= $this->Html->link('ステータス', ['controller' => 'Statuses'], ['class' => 'collapse-item']);?>
-                        <?= $this->Html->link('権限', ['controller' => 'Roles'], ['class' => 'collapse-item']);?>
+                        <?= $this->Html->link('ユーザー', ['controller' => 'Users', 'action' => 'index'], ['class' => 'collapse-item']);?>
+                        <?= $this->Html->link('ステータス', ['controller' => 'Statuses', 'action' => 'index'], ['class' => 'collapse-item']);?>
+                        <?= $this->Html->link('権限', ['controller' => 'Roles', 'action' => 'index'], ['class' => 'collapse-item']);?>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">その他:</h6>
                     </div>
@@ -211,7 +211,7 @@ $cakeDescription = '案件管理システム';
                                     <h1 class="h3 mb-0 text-gray-800"><a href=""><?= $this->fetch('title') ?></a></h1>
                                 </div>
                                 <div class="card-body">
-                                <?= $this->Flash->render() ?>
+                                    <?= $this->Flash->render() ?>
                                     <?= $this->fetch('content') ?>
                                 </div>
                             </div>
@@ -276,6 +276,7 @@ $cakeDescription = '案件管理システム';
 
     <!-- Custom scripts for all pages-->
     <?= $this->Html->script('sb-admin-2.min') ?>
+    <?= $this->Html->script('original') ?>
 
     <!-- Page level plugins -->
     <?= $this->Html->script('vendor/chart.js/Chart.min') ?>
