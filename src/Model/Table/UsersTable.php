@@ -69,29 +69,13 @@ class UsersTable extends Table
         $validator
             ->scalar('mail')
             ->maxLength('mail', 254)
-            ->requirePresence('mail', 'create')
-            ->notEmpty('mail');
+            ->email('mail', false, 'メールアドレスの形式が違います。')
+            ->allowEmpty('mail');
 
         $validator
             ->scalar('tel')
             ->maxLength('tel', 21)
-            ->requirePresence('tel', 'create')
-            ->notEmpty('tel');
-
-        $validator
-            ->boolean('is_delete')
-            ->requirePresence('is_delete', 'create')
-            ->notEmpty('is_delete');
-
-        $validator
-            ->dateTime('create_at')
-            ->requirePresence('create_at', 'create')
-            ->notEmpty('create_at');
-
-        $validator
-            ->dateTime('update_at')
-            ->requirePresence('update_at', 'create')
-            ->notEmpty('update_at');
+            ->allowEmpty('tel');
 
         return $validator;
     }
