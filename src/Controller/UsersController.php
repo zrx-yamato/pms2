@@ -58,7 +58,6 @@ class UsersController extends AuthController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user->create_at = date("Y-m-d H:i:s");
-            $user->update_at = date("Y-m-d H:i:s");
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('ユーザーを追加しました。'));
 

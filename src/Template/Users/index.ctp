@@ -3,7 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
-	$this->assign('title', 'ユーザー');
+	$this->assign('title', 'ユーザー一覧');
 ?>
 <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
     <?= $this->Html->link('
@@ -12,7 +12,7 @@
 </nav>
 <div class="users index large-9 medium-8 columns content">
     <div class="table-responsive">
-        <table class="table table-bordered dataTable" cellpadding="0" cellspacing="0">
+        <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('id', 'ID') ?></th>

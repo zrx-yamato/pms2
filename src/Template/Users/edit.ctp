@@ -3,7 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
-	$this->assign('title', 'ユーザー編集');
+	$this->assign('title', '「' . $user->name . '」ユーザー編集');
 ?>
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
