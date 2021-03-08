@@ -42,6 +42,7 @@
                                 </div>
                                 <div class="card-body">
 									<div class="users form">
+                                    <?= $this->Flash->render() ?>
 									<?= $this->Flash->render('auth') ?>
 									<?= $this->Form->create() ?>
 										<fieldset>
