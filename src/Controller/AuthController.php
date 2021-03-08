@@ -71,9 +71,9 @@ class AuthController extends AppController
 	// 認証時のロールの処理
 	public function isAuthorized($user = null){
 		// 管理者はtrue
-		if($user['role_id'] === 1){
-		   return true;
-		}
+		// if($user['role_id'] === 1){
+		//    return true;
+		// }
 		// 一般ユーザーはAuctionControllerのみtrue、他はfalse
 		// if($user['role'] === 'user'){
 		// 	if ($this->name == 'Auction'){
@@ -83,7 +83,10 @@ class AuthController extends AppController
 		// 	}
 		// }
 		// その他はすべてfalse
-		$this->Flash->error('ログイン権限がありません。');
-		return false;
+		// $this->Flash->error('ログイン権限がありません。');
+		// return false;
+
+		//どんな権限でもログイン可能
+		return true;
 	}
 }
