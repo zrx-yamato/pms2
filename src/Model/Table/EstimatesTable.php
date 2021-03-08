@@ -47,7 +47,7 @@ class EstimatesTable extends Table
             'foreignKey' => 'add_user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Updaters', [
             'foreignKey' => 'update_user_id',
             'joinType' => 'INNER'
         ]);

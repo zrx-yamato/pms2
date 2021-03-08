@@ -38,7 +38,15 @@ class ProjectsController extends AuthController
     public function view($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['Companies', 'Personnels', 'Users', 'Estimates', 'Tasks']
+            'contain' => [
+                'Companies', 'Personnels', 'Users', 'Updaters', 
+                'Estimates' => [
+                    'Users', 'Updaters', 'Statuses'
+                ], 
+                'Tasks' => [
+                    'Users', 'Updaters', 'Personnels', 'Statuses', 'Projects'
+                ]
+            ]
         ]);
 
         $this->set('project', $project);
@@ -54,6 +62,9 @@ class ProjectsController extends AuthController
         $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
+            $project->create_at = date("Y-m-d H:i:s");
+            $project->add_user_id = $this->Auth->user('id');
+            $project->add_update_id = $this->Auth->user('id');
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
 
@@ -82,6 +93,8 @@ class ProjectsController extends AuthController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
+            $project->add_update_id = $this->Auth->user('id');
+            $project->update_at = date("Y-m-d H:i:s");
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
 

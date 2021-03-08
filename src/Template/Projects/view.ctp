@@ -3,160 +3,155 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Project $project
  */
+    $this->assign('title', '「' . $project->title . '」プロジェクトの詳細');
+    $this->assign('date', 'test');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Project'), ['action' => 'edit', $project->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Project'), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Projects'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Companies'), ['controller' => 'Companies', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Company'), ['controller' => 'Companies', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Personnels'), ['controller' => 'Personnels', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Personnel'), ['controller' => 'Personnels', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Estimates'), ['controller' => 'Estimates', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Estimate'), ['controller' => 'Estimates', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Tasks'), ['controller' => 'Tasks', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Task'), ['controller' => 'Tasks', 'action' => 'add']) ?> </li>
-    </ul>
+<nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
+    <!-- 編集 -->
+    <?= $this->Html->link('
+        <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
+        <span class="text">編集</span>',
+        ['action' => 'edit', $project->id], ['class' => 'btn btn-secondary btn-icon-split mr-2', 'escape' => false]) ?>
+    <!-- 削除 -->
+    <?= $this->Form->postLink('
+        <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
+        <span class="text">削除</span>',
+        ['action' => 'delete', $project->id], ['confirm' => __('ID{0}:' . $project->title . 'を本当に削除しますか？', $project->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
+
+<div class="paginator d-flex justify-content-between">
+    <div>ID:<?= $this->Number->format($project->id) ?></div>
+    <div>
+        登録日:<?= h($project->create_at->i18nFormat('YYYY/MM/dd')) ?>(<?= $project->user->name?>)&nbsp;
+        <?php if($project->update_at != null){ 
+            echo('更新日:' . h($project->update_at->i18nFormat('YYYY/MM/dd')));
+            echo '(' . $project->updater->name . ')';
+        } ?>
+    </div>
+</div>
 <div class="projects view large-9 medium-8 columns content">
-    <h3><?= h($project->title) ?></h3>
-    <table class="vertical-table">
+    <table class="table table-striped">
         <tr>
-            <th scope="row"><?= __('Title') ?></th>
+            <th scope="row"><?= __('プロジェクト名') ?></th>
             <td><?= h($project->title) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Git Data') ?></th>
+            <th scope="row"><?= __('git情報') ?></th>
             <td><?= h($project->git_data) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Company') ?></th>
+            <th scope="row"><?= __('クライアント') ?></th>
             <td><?= $project->has('company') ? $this->Html->link($project->company->name, ['controller' => 'Companies', 'action' => 'view', $project->company->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Personnel') ?></th>
+            <th scope="row"><?= __('担当者') ?></th>
             <td><?= $project->has('personnel') ? $this->Html->link($project->personnel->name, ['controller' => 'Personnels', 'action' => 'view', $project->personnel->id]) : '' ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($project->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Add User Id') ?></th>
-            <td><?= $this->Number->format($project->add_user_id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Add Update Id') ?></th>
-            <td><?= $this->Number->format($project->add_update_id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Create At') ?></th>
-            <td><?= h($project->create_at) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Update At') ?></th>
-            <td><?= h($project->update_at) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Is Delete') ?></th>
-            <td><?= $project->is_delete ? __('Yes') : __('No'); ?></td>
-        </tr>
     </table>
-    <div class="row">
-        <h4><?= __('Id Pass Area') ?></h4>
-        <?= $this->Text->autoParagraph(h($project->id_pass_area)); ?>
+    
+    <div class="card mb-4">
+        <div class="card-header">ID、パスワード情報</div>
+        <div class="card-body">
+            <?= $this->Text->autoParagraph(h($project->id_pass_area)); ?>
+        </div>
     </div>
-    <div class="row">
-        <h4><?= __('Memo') ?></h4>
-        <?= $this->Text->autoParagraph(h($project->memo)); ?>
+
+    <div class="card mb-4">
+        <div class="card-header">メモ</div>
+        <div class="card-body">
+            <?= $this->Text->autoParagraph(h($project->memo)); ?>
+        </div>
     </div>
+
     <div class="related">
-        <h4><?= __('Related Estimates') ?></h4>
-        <?php if (!empty($project->estimates)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Title') ?></th>
-                <th scope="col"><?= __('Document') ?></th>
-                <th scope="col"><?= __('Price') ?></th>
-                <th scope="col"><?= __('Project Id') ?></th>
-                <th scope="col"><?= __('Add User Id') ?></th>
-                <th scope="col"><?= __('Update User Id') ?></th>
-                <th scope="col"><?= __('Status Id') ?></th>
-                <th scope="col"><?= __('Is Delete') ?></th>
-                <th scope="col"><?= __('Create At') ?></th>
-                <th scope="col"><?= __('Update At') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($project->estimates as $estimates): ?>
-            <tr>
-                <td><?= h($estimates->id) ?></td>
-                <td><?= h($estimates->title) ?></td>
-                <td><?= h($estimates->document) ?></td>
-                <td><?= h($estimates->price) ?></td>
-                <td><?= h($estimates->project_id) ?></td>
-                <td><?= h($estimates->add_user_id) ?></td>
-                <td><?= h($estimates->update_user_id) ?></td>
-                <td><?= h($estimates->status_id) ?></td>
-                <td><?= h($estimates->is_delete) ?></td>
-                <td><?= h($estimates->create_at) ?></td>
-                <td><?= h($estimates->update_at) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Estimates', 'action' => 'view', $estimates->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Estimates', 'action' => 'edit', $estimates->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Estimates', 'action' => 'delete', $estimates->id], ['confirm' => __('Are you sure you want to delete # {0}?', $estimates->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Tasks') ?></h4>
+        <div class="card mb-4 border-left-dark">
+            <div class="card-body">
+                タスク一覧
+            </div>
+        </div>
         <?php if (!empty($project->tasks)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
+            <thead>
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Title') ?></th>
-                <th scope="col"><?= __('Content') ?></th>
-                <th scope="col"><?= __('Assumption Time') ?></th>
-                <th scope="col"><?= __('Real Time') ?></th>
-                <th scope="col"><?= __('Status Id') ?></th>
-                <th scope="col"><?= __('Project Id') ?></th>
-                <th scope="col"><?= __('Personnel Id') ?></th>
-                <th scope="col"><?= __('Is Delete') ?></th>
-                <th scope="col"><?= __('Create At') ?></th>
-                <th scope="col"><?= __('Update At') ?></th>
-                <th scope="col"><?= __('Add User Id') ?></th>
-                <th scope="col"><?= __('Add Update Id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= __('ステータス') ?></th>
+                <th scope="col"><?= __('タスク名') ?></th>
+                <th scope="col"><?= __('概要') ?></th>
+                <th scope="col"><?= __('想定時間') ?></th>
+                <th scope="col"><?= __('実働時間') ?></th>
+                <th scope="col"><?= __('担当者') ?></th>
+                <th scope="col"><?= __('登録者') ?></th>
+                <th scope="col"><?= __('更新者') ?></th>
+                <th scope="col"><?= __('登録日') ?></th>
+                <th scope="col"><?= __('更新日') ?></th>
+                <th scope="col" class="actions"></th>
             </tr>
+            </thead>
             <?php foreach ($project->tasks as $tasks): ?>
             <tr>
-                <td><?= h($tasks->id) ?></td>
+                <td><?= h($tasks->status->name) ?></td>
                 <td><?= h($tasks->title) ?></td>
                 <td><?= h($tasks->content) ?></td>
                 <td><?= h($tasks->assumption_time) ?></td>
                 <td><?= h($tasks->real_time) ?></td>
-                <td><?= h($tasks->status_id) ?></td>
-                <td><?= h($tasks->project_id) ?></td>
-                <td><?= h($tasks->personnel_id) ?></td>
-                <td><?= h($tasks->is_delete) ?></td>
-                <td><?= h($tasks->create_at) ?></td>
-                <td><?= h($tasks->update_at) ?></td>
-                <td><?= h($tasks->add_user_id) ?></td>
-                <td><?= h($tasks->add_update_id) ?></td>
+                <td><?= h($tasks->personnel->name) ?></td>
+                <td><?= h($tasks->user->name); ?></td>
+                <td><?= h($tasks->updater->name) ?></td>
+                <td><?= h($tasks->create_at->i18nFormat('YYYY/MM/dd')) ?></td>
+                <td><?= h($tasks->update_at->i18nFormat('YYYY/MM/dd')) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Tasks', 'action' => 'view', $tasks->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Tasks', 'action' => 'edit', $tasks->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Tasks', 'action' => 'delete', $tasks->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tasks->id)]) ?>
+                    <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['controller' => 'tasks', 'action' => 'view', $tasks->id], ['escape' => false])?></span>
+                    <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['controller' => 'tasks', 'action' => 'edit', $tasks->id], ['escape' => false])?></span>
+                    <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['controller' => 'tasks', 'action' => 'delete', $tasks->id], ['confirm' => __('タスク名「' . $tasks->title . '」を本当に削除しますか？'),'escape' => false]) ?></span>
                 </td>
             </tr>
             <?php endforeach; ?>
         </table>
+        <?php else: ?>
+        <p>現在、タスクはありません。</p>
+        <?php endif; ?>
+    </div>
+    
+    <div class="related">
+        <div class="card mb-4 border-left-dark">
+            <div class="card-body">
+                見積もり一覧
+            </div>
+        </div>
+        <?php if (!empty($project->estimates)): ?>
+        <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col"><?= __('ステータス') ?></th>
+                    <th scope="col"><?= __('見積もり名') ?></th>
+                    <th scope="col"><?= __('概要') ?></th>
+                    <th scope="col"><?= __('金額') ?></th>
+                    <th scope="col"><?= __('登録者') ?></th>
+                    <th scope="col"><?= __('更新者') ?></th>
+                    <th scope="col"><?= __('登録日') ?></th>
+                    <th scope="col"><?= __('更新日') ?></th>
+                    <th scope="col" class="actions"></th>
+                </tr>
+            </thead>
+            <?php foreach ($project->estimates as $estimates): ?>
+            <tr>
+                <td><?= h($estimates->status->name) ?></td>
+                <td><?= h($estimates->title) ?></td>
+                <td><?= h($estimates->document) ?></td>
+                <td><?= h(number_format($estimates->price)) ?>円</td>
+                <td><?= h($estimates->user->name) ?></td>
+                <td><?= h($estimates->updater->name) ?></td>
+                <td><?= h($estimates->create_at->i18nFormat('YYYY/MM/dd')) ?></td>
+                <td><?= h($estimates->update_at->i18nFormat('YYYY/MM/dd')) ?></td>
+                <td class="actions">
+                    <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['controller' => 'estimates', 'action' => 'view', $estimates->id], ['escape' => false])?></span>
+                    <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['controller' => 'estimates', 'action' => 'edit', $estimates->id], ['escape' => false])?></span>
+                    <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['controller' => 'estimates', 'action' => 'delete', $estimates->id], ['confirm' => __('見積もり名「' . $estimates->title . '」本当に削除しますか？'),'escape' => false]) ?></span>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php else: ?>
+        <p>現在、見積もりはありません。</p>
         <?php endif; ?>
     </div>
 </div>

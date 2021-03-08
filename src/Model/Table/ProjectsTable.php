@@ -50,10 +50,12 @@ class ProjectsTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
+            'className' => 'Users', 
             'foreignKey' => 'add_user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Updaters', [
+            'className' => 'Users', 
             'foreignKey' => 'add_update_id',
             'joinType' => 'INNER'
         ]);
@@ -86,33 +88,19 @@ class ProjectsTable extends Table
         $validator
             ->scalar('git_data')
             ->maxLength('git_data', 2083)
-            ->requirePresence('git_data', 'create')
-            ->notEmpty('git_data');
+            ->allowEmpty('git_data');
 
         $validator
             ->scalar('id_pass_area')
-            ->requirePresence('id_pass_area', 'create')
-            ->notEmpty('id_pass_area');
+            ->allowEmpty('id_pass_area');
 
         $validator
             ->scalar('memo')
-            ->requirePresence('memo', 'create')
-            ->notEmpty('memo');
-
-        $validator
-            ->boolean('is_delete')
-            ->requirePresence('is_delete', 'create')
-            ->notEmpty('is_delete');
-
-        $validator
-            ->dateTime('create_at')
-            ->requirePresence('create_at', 'create')
-            ->notEmpty('create_at');
+            ->allowEmpty('memo');
 
         $validator
             ->dateTime('update_at')
-            ->requirePresence('update_at', 'create')
-            ->notEmpty('update_at');
+            ->allowEmpty('update_at');
 
         return $validator;
     }
@@ -129,7 +117,7 @@ class ProjectsTable extends Table
         $rules->add($rules->existsIn(['company_id'], 'Companies'));
         $rules->add($rules->existsIn(['personnel_id'], 'Personnels'));
         $rules->add($rules->existsIn(['add_user_id'], 'Users'));
-        $rules->add($rules->existsIn(['add_update_id'], 'Users'));
+        $rules->add($rules->existsIn(['add_update_id'], 'Updaters'));
 
         return $rules;
     }

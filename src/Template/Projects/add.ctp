@@ -3,39 +3,29 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Project $project
  */
+    $this->assign('title', 'プロジェクト追加');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Projects'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Companies'), ['controller' => 'Companies', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Company'), ['controller' => 'Companies', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Personnels'), ['controller' => 'Personnels', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Personnel'), ['controller' => 'Personnels', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Estimates'), ['controller' => 'Estimates', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Estimate'), ['controller' => 'Estimates', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Tasks'), ['controller' => 'Tasks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Task'), ['controller' => 'Tasks', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="projects form large-9 medium-8 columns content">
     <?= $this->Form->create($project) ?>
     <fieldset>
-        <legend><?= __('Add Project') ?></legend>
+        <!-- <pre><?php var_dump($companies);?></pre> -->
+        <?php 
+            //echo $this->Form->select('クライアント', $personnels, ['label' => '担当者', 'class' => 'w-auto form-control']);
+        ?>
         <?php
-            echo $this->Form->control('title');
-            echo $this->Form->control('git_data');
-            echo $this->Form->control('id_pass_area');
-            echo $this->Form->control('memo');
-            echo $this->Form->control('company_id', ['options' => $companies]);
-            echo $this->Form->control('personnel_id', ['options' => $personnels]);
-            echo $this->Form->control('is_delete');
-            echo $this->Form->control('create_at');
-            echo $this->Form->control('update_at');
-            echo $this->Form->control('add_user_id');
-            echo $this->Form->control('add_update_id');
+            echo $this->Form->control('title', ['label' => 'プロジェクト名', 'class' => 'form-control']);
+            echo $this->Form->control('git_data', ['label' => 'git情報', 'class' => 'form-control']);
+            echo $this->Form->control('id_pass_area', ['label' => 'ID、パスワード情報', 'class' => 'form-control']);
+            echo $this->Form->control('memo', ['label' => 'メモエリア', 'class' => 'form-control']);
+            echo $this->Form->control('company_id', ['label' => 'クライアント', 'options' => $companies, 'class' => 'w-auto form-control']);
+            echo $this->Form->control('personnel_id', ['label' => '担当者','options' => $personnels, 'class' => 'w-auto form-control']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <button type="submit" class="btn btn-primary ml-auto d-block">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text">追加する</span>
+    </button>
     <?= $this->Form->end() ?>
 </div>

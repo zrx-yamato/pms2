@@ -56,7 +56,7 @@ class TasksTable extends Table
             'foreignKey' => 'add_user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Updaters', [
             'foreignKey' => 'add_update_id',
             'joinType' => 'INNER'
         ]);
