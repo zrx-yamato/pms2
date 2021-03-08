@@ -77,6 +77,13 @@ $cakeDescription = '案件管理システム';
                     <span>プロジェクト</span></a>
             </li>
             
+            <!-- Nav Item - Pages Collapse Tasks -->
+            <li class="nav-item">
+                <a class="nav-link" href="/pms2/Tasks/">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>タスク</span></a>
+            </li>
+            
             <!-- Nav Item - Pages Collapse Companies -->
             <li class="nav-item">
                 <a class="nav-link" href="/pms2/Companies/">
@@ -84,15 +91,24 @@ $cakeDescription = '案件管理システム';
                     <span>会社</span></a>
             </li>
             
-            <!-- Nav Item - Pages Collapse Tasks -->
+            <!-- Nav Item - Pages Collapse personnels -->
             <li class="nav-item">
-                <a class="nav-link" href="/pms2/Tasks/">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>タスク</span></a>
+                <a class="nav-link" href="/pms2/Personnels/">
+                    <i class="fas fa-user-tie"></i>
+                    <span>担当者</span></a>
+            </li>
+            
+            <!-- Nav Item - Pages Collapse Estimates -->
+            <li class="nav-item">
+                <a class="nav-link" href="/pms2/Estimates/">
+                    <i class="fas fa-yen-sign"></i>
+                    <span>見積もり</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
+            <?php if($authuser["role_id"] == 1) :?>
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -121,6 +137,8 @@ $cakeDescription = '案件管理システム';
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
+            <?php endif;?>
+            
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
