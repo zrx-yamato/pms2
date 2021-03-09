@@ -3,48 +3,43 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Status $status
  */
+    $this->assign('title', '「' . h($status->name) . '」ステータスの詳細');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Status'), ['action' => 'edit', $status->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Status'), ['action' => 'delete', $status->id], ['confirm' => __('Are you sure you want to delete # {0}?', $status->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Statuses'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Status'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Estimates'), ['controller' => 'Estimates', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Estimate'), ['controller' => 'Estimates', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Tasks'), ['controller' => 'Tasks', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Task'), ['controller' => 'Tasks', 'action' => 'add']) ?> </li>
-    </ul>
+<nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
+    <!-- 編集 -->
+    <?= $this->Html->link('
+        <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
+        <span class="text">編集</span>',
+        ['action' => 'edit', $status->id], ['class' => 'btn btn-secondary btn-icon-split mr-2', 'escape' => false]) ?>
+    <!-- 削除 -->
+    <?= $this->Form->postLink('
+        <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
+        <span class="text">削除</span>',
+        ['action' => 'delete', $status->id], ['confirm' => __('ステータス名「'.$status->name.'」を本当に削除しますか？', $status->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
 <div class="statuses view large-9 medium-8 columns content">
-    <h3><?= h($status->name) ?></h3>
-    <table class="vertical-table">
+    <table class="table table-striped">
         <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($status->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
+            <th scope="row"><?= __('ID') ?></th>
             <td><?= $this->Number->format($status->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Create At') ?></th>
+            <th scope="row"><?= __('ステータス名') ?></th>
+            <td><?= h($status->name) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('登録日') ?></th>
             <td><?= h($status->create_at) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Update At') ?></th>
+            <th scope="row"><?= __('更新日') ?></th>
             <td><?= h($status->update_at) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Is Delete') ?></th>
-            <td><?= $status->is_delete ? __('Yes') : __('No'); ?></td>
-        </tr>
     </table>
-    <div class="related">
+    <!-- <div class="related">
         <h4><?= __('Related Estimates') ?></h4>
         <?php if (!empty($status->estimates)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Title') ?></th>
@@ -85,7 +80,7 @@
     <div class="related">
         <h4><?= __('Related Tasks') ?></h4>
         <?php if (!empty($status->tasks)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Title') ?></th>
@@ -126,5 +121,5 @@
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
-    </div>
+    </div> -->
 </div>

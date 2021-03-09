@@ -20,6 +20,9 @@ class StatusesController extends AuthController
      */
     public function index()
     {
+        $this->paginate = [
+            'conditions' => ['Statuses.is_delete' => 0]
+        ];
         $statuses = $this->paginate($this->Statuses);
 
         $this->set(compact('statuses'));
@@ -51,12 +54,13 @@ class StatusesController extends AuthController
         $status = $this->Statuses->newEntity();
         if ($this->request->is('post')) {
             $status = $this->Statuses->patchEntity($status, $this->request->getData());
+            $status->create_at = date("Y-m-d H:i:s");
             if ($this->Statuses->save($status)) {
-                $this->Flash->success(__('The status has been saved.'));
+                $this->Flash->success(__('ステータスを追加しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The status could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
         $this->set(compact('status'));
     }
@@ -75,12 +79,13 @@ class StatusesController extends AuthController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $status = $this->Statuses->patchEntity($status, $this->request->getData());
+            $status->update_at = date("Y-m-d H:i:s");
             if ($this->Statuses->save($status)) {
-                $this->Flash->success(__('The status has been saved.'));
+                $this->Flash->success(__('ステータスを更新しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The status could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
         $this->set(compact('status'));
     }
@@ -94,13 +99,27 @@ class StatusesController extends AuthController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $status = $this->Statuses->get($id);
-        if ($this->Statuses->delete($status)) {
-            $this->Flash->success(__('The status has been deleted.'));
-        } else {
-            $this->Flash->error(__('The status could not be deleted. Please, try again.'));
+        
+        $status = $this->Statuses->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $status = $this->Statuses->patchEntity($status, $this->request->getData());
+            $status->is_delete = 1;
+            if ($this->Statuses->save($status)) {
+                $this->Flash->success(__('ステータスを削除しました。'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('削除出来ませんでした。もう一度やり直してください。'));
         }
+        // $this->request->allowMethod(['post', 'delete']);
+        // $status = $this->Statuses->get($id);
+        // if ($this->Statuses->delete($status)) {
+        //     $this->Flash->success(__('ステータスを削除しました。'));
+        // } else {
+        //     $this->Flash->error(__('削除出来ませんでした。もう一度やり直してください。'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }
