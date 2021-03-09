@@ -59,21 +59,6 @@ class RolesTable extends Table
             ->requirePresence('name', 'create')
             ->notEmpty('name');
 
-        $validator
-            ->boolean('is_delete')
-            ->requirePresence('is_delete', 'create')
-            ->notEmpty('is_delete');
-
-        $validator
-            ->dateTime('create_at')
-            ->requirePresence('create_at', 'create')
-            ->notEmpty('create_at');
-
-        $validator
-            ->dateTime('update_at')
-            ->requirePresence('update_at', 'create')
-            ->notEmpty('update_at');
-
         return $validator;
     }
 }

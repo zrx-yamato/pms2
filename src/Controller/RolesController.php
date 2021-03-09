@@ -20,6 +20,9 @@ class RolesController extends AuthController
      */
     public function index()
     {
+        $this->paginate = [
+            'conditions' => ['Roles.is_delete' => 0]
+        ];
         $roles = $this->paginate($this->Roles);
 
         $this->set(compact('roles'));
@@ -51,12 +54,13 @@ class RolesController extends AuthController
         $role = $this->Roles->newEntity();
         if ($this->request->is('post')) {
             $role = $this->Roles->patchEntity($role, $this->request->getData());
+            $role->create_at = date("Y-m-d H:i:s");
             if ($this->Roles->save($role)) {
-                $this->Flash->success(__('The role has been saved.'));
+                $this->Flash->success(__('権限を追加しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The role could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
         $this->set(compact('role'));
     }
@@ -75,12 +79,13 @@ class RolesController extends AuthController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $role = $this->Roles->patchEntity($role, $this->request->getData());
+            $role->update_at = date("Y-m-d H:i:s");
             if ($this->Roles->save($role)) {
-                $this->Flash->success(__('The role has been saved.'));
+                $this->Flash->success(__('権限を更新しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The role could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
         $this->set(compact('role'));
     }
@@ -94,13 +99,26 @@ class RolesController extends AuthController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $role = $this->Roles->get($id);
-        if ($this->Roles->delete($role)) {
-            $this->Flash->success(__('The role has been deleted.'));
-        } else {
-            $this->Flash->error(__('The role could not be deleted. Please, try again.'));
+        $role = $this->Roles->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $role = $this->Roles->patchEntity($role, $this->request->getData());
+            $role->is_delete = 1;
+            if ($this->Roles->save($role)) {
+                $this->Flash->success(__('権限を削除しました。'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('削除出来ませんでした。もう一度やり直してください。'));
         }
+        // $this->request->allowMethod(['post', 'delete']);
+        // $role = $this->Roles->get($id);
+        // if ($this->Roles->delete($role)) {
+        //     $this->Flash->success(__('The role has been deleted.'));
+        // } else {
+        //     $this->Flash->error(__('The role could not be deleted. Please, try again.'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }

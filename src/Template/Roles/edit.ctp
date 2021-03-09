@@ -3,32 +3,20 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Role $role
  */
+	$this->assign('title', '「' . $role->name . '」の権限編集');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $role->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $role->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Roles'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="roles form large-9 medium-8 columns content">
     <?= $this->Form->create($role) ?>
     <fieldset>
-        <legend><?= __('Edit Role') ?></legend>
         <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('is_delete');
-            echo $this->Form->control('create_at');
-            echo $this->Form->control('update_at');
+            echo $this->Form->control('name', ['label' => '権限名', 'class' => 'form-control']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <button type="submit" class="btn btn-primary ml-auto d-block">
+        <span class="icon text-white-50">
+            <i class="fas fa-edit"></i>
+        </span>
+        <span class="text">更新する</span>
+    </button>
     <?= $this->Form->end() ?>
 </div>
