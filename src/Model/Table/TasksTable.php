@@ -53,10 +53,12 @@ class TasksTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
+            'className' => 'Users', 
             'foreignKey' => 'add_user_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Updaters', [
+            'className' => 'Users', 
             'foreignKey' => 'add_update_id',
             'joinType' => 'INNER'
         ]);
@@ -82,35 +84,17 @@ class TasksTable extends Table
 
         $validator
             ->scalar('content')
-            ->requirePresence('content', 'create')
-            ->notEmpty('content');
+            ->allowEmpty('content');
 
         $validator
             ->scalar('assumption_time')
             ->maxLength('assumption_time', 10)
-            ->requirePresence('assumption_time', 'create')
-            ->notEmpty('assumption_time');
+            ->allowEmpty('assumption_time');
 
         $validator
             ->scalar('real_time')
             ->maxLength('real_time', 10)
-            ->requirePresence('real_time', 'create')
-            ->notEmpty('real_time');
-
-        $validator
-            ->boolean('is_delete')
-            ->requirePresence('is_delete', 'create')
-            ->notEmpty('is_delete');
-
-        $validator
-            ->dateTime('create_at')
-            ->requirePresence('create_at', 'create')
-            ->notEmpty('create_at');
-
-        $validator
-            ->dateTime('update_at')
-            ->requirePresence('update_at', 'create')
-            ->notEmpty('update_at');
+            ->allowEmpty('real_time');
 
         return $validator;
     }
@@ -128,7 +112,7 @@ class TasksTable extends Table
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
         $rules->add($rules->existsIn(['personnel_id'], 'Personnels'));
         $rules->add($rules->existsIn(['add_user_id'], 'Users'));
-        $rules->add($rules->existsIn(['add_update_id'], 'Users'));
+        $rules->add($rules->existsIn(['add_update_id'], 'Updaters'));
 
         return $rules;
     }
