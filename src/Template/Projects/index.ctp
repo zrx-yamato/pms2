@@ -34,7 +34,7 @@
                     <td><?= $project->has('company') ? $this->Html->link($project->company->name, ['controller' => 'Companies', 'action' => 'view', $project->company->id]) : '' ?></td>
                     <td><?= $project->has('personnel') ? $this->Html->link($project->personnel->name, ['controller' => 'Personnels', 'action' => 'view', $project->personnel->id]) : '' ?></td>
                     <td><?= $this->Html->link($project->user->name, ['controller' => 'Users', 'action' => 'view', $project->user->id]) ?></td>
-                    <td><?= $this->Html->link($project->user->name, ['controller' => 'Users', 'action' => 'view', $project->user->id]) ?></td>
+                    <td><?= $this->Html->link($project->updater->name, ['controller' => 'Users', 'action' => 'view', $project->updater->id]) ?></td>
                     <td><?= h($project->create_at) ?></td>
                     <td><?= h($project->update_at) ?></td>
                     <td class="actions">

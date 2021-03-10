@@ -21,7 +21,7 @@ class ProjectsController extends AuthController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Companies', 'Personnels', 'Users']
+            'contain' => ['Companies', 'Personnels', 'Users', 'Updaters']
         ];
         $projects = $this->paginate($this->Projects);
 
