@@ -3,7 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Role $role
  */
-	$this->assign('title', '新規権限追加');
+	$this->assign('title', '権限追加');
 ?>
 <div class="roles form large-9 medium-8 columns content">
     <?= $this->Form->create($role) ?>

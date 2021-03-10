@@ -66,11 +66,11 @@ class ProjectsController extends AuthController
             $project->add_user_id = $this->Auth->user('id');
             $project->add_update_id = $this->Auth->user('id');
             if ($this->Projects->save($project)) {
-                $this->Flash->success(__('The project has been saved.'));
+                $this->Flash->success(__('プロジェクトを追加しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The project could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
         $companies = $this->Projects->Companies->find('list', ['limit' => 200]);
         $personnels = $this->Projects->Personnels->find('list', ['limit' => 200]);
@@ -96,11 +96,11 @@ class ProjectsController extends AuthController
             $project->add_update_id = $this->Auth->user('id');
             $project->update_at = date("Y-m-d H:i:s");
             if ($this->Projects->save($project)) {
-                $this->Flash->success(__('The project has been saved.'));
+                $this->Flash->success(__('プロジェクトを更新しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The project could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
         $companies = $this->Projects->Companies->find('list', ['limit' => 200]);
         $personnels = $this->Projects->Personnels->find('list', ['limit' => 200]);
@@ -121,7 +121,7 @@ class ProjectsController extends AuthController
         $this->request->allowMethod(['post', 'delete']);
         $project = $this->Projects->get($id);
         if ($this->Projects->delete($project)) {
-            $this->Flash->success(__('The project has been deleted.'));
+            $this->Flash->success(__('プロジェクトを削除しました。'));
         } else {
             $this->Flash->error(__('The project could not be deleted. Please, try again.'));
         }
