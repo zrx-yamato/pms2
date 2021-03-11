@@ -88,7 +88,7 @@ $cakeDescription = '案件管理システム';
             <li class="nav-item">
                 <a class="nav-link" href="/pms2/Companies/">
                     <i class="fas fa-fw fa-building"></i>
-                    <span>会社</span></a>
+                    <span>関連会社</span></a>
             </li>
             
             <!-- Nav Item - Pages Collapse personnels -->

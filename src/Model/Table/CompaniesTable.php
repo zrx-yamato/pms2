@@ -61,34 +61,17 @@ class CompaniesTable extends Table
             ->scalar('name')
             ->maxLength('name', 137)
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->allowEmpty('name');
 
         $validator
             ->scalar('tel')
             ->maxLength('tel', 21)
-            ->requirePresence('tel', 'create')
-            ->notEmpty('tel');
+            ->allowEmpty('tel');
 
         $validator
             ->scalar('address')
             ->maxLength('address', 161)
-            ->requirePresence('address', 'create')
-            ->notEmpty('address');
-
-        $validator
-            ->boolean('is_delete')
-            ->requirePresence('is_delete', 'create')
-            ->notEmpty('is_delete');
-
-        $validator
-            ->dateTime('create_at')
-            ->requirePresence('create_at', 'create')
-            ->notEmpty('create_at');
-
-        $validator
-            ->dateTime('update_at')
-            ->requirePresence('update_at', 'create')
-            ->notEmpty('update_at');
+            ->allowEmpty('address');
 
         return $validator;
     }

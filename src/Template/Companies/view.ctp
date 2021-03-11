@@ -3,56 +3,53 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Company $company
  */
+	$this->assign('title', '「' . $company->name . '」関連会社の詳細');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Company'), ['action' => 'edit', $company->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Company'), ['action' => 'delete', $company->id], ['confirm' => __('Are you sure you want to delete # {0}?', $company->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Companies'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Company'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Personnels'), ['controller' => 'Personnels', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Personnel'), ['controller' => 'Personnels', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?> </li>
-    </ul>
+<nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
+    <!-- 編集 -->
+    <?= $this->Html->link('
+        <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
+        <span class="text">編集</span>',
+        ['action' => 'edit', $company->id], ['class' => 'btn btn-secondary btn-icon-split mr-2', 'escape' => false]) ?>
+    <!-- 削除 -->
+    <?= $this->Form->postLink('
+        <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
+        <span class="text">削除</span>',
+        ['action' => 'delete', $company->id], ['confirm' => __('関連会社名「'.$company->name.'」を本当に削除しますか？', $company->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
 <div class="companies view large-9 medium-8 columns content">
-    <h3><?= h($company->name) ?></h3>
-    <table class="vertical-table">
+    <table class="table table-striped">
         <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($company->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Tel') ?></th>
-            <td><?= h($company->tel) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Address') ?></th>
-            <td><?= h($company->address) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
+            <th scope="row"><?= __('ID') ?></th>
             <td><?= $this->Number->format($company->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Create At') ?></th>
+            <th scope="row"><?= __('関連会社名') ?></th>
+            <td><?= h($company->name) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('電話番号') ?></th>
+            <td><?= h($company->tel) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('住所') ?></th>
+            <td><?= h($company->address) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('登録日') ?></th>
             <td><?= h($company->create_at) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Update At') ?></th>
+            <th scope="row"><?= __('更新日') ?></th>
             <td><?= h($company->update_at) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Is Delete') ?></th>
-            <td><?= $company->is_delete ? __('Yes') : __('No'); ?></td>
-        </tr>
     </table>
+<!-- 
     <div class="related">
         <h4><?= __('Related Personnels') ?></h4>
         <?php if (!empty($company->personnels)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
+            <thead>
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
@@ -63,6 +60,7 @@
                 <th scope="col"><?= __('Update At') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
+            </thead>
             <?php foreach ($company->personnels as $personnels): ?>
             <tr>
                 <td><?= h($personnels->id) ?></td>
@@ -85,7 +83,8 @@
     <div class="related">
         <h4><?= __('Related Projects') ?></h4>
         <?php if (!empty($company->projects)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
+            <thead>
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Title') ?></th>
@@ -101,6 +100,7 @@
                 <th scope="col"><?= __('Add Update Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
+            </thead>
             <?php foreach ($company->projects as $projects): ?>
             <tr>
                 <td><?= h($projects->id) ?></td>
@@ -125,4 +125,5 @@
         </table>
         <?php endif; ?>
     </div>
+-->
 </div>

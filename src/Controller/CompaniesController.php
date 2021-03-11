@@ -20,6 +20,9 @@ class CompaniesController extends AuthController
      */
     public function index()
     {
+        $this->paginate = [
+            'conditions' => ['Companies.is_delete' => 0]
+        ];
         $companies = $this->paginate($this->Companies);
 
         $this->set(compact('companies'));
@@ -51,12 +54,15 @@ class CompaniesController extends AuthController
         $company = $this->Companies->newEntity();
         if ($this->request->is('post')) {
             $company = $this->Companies->patchEntity($company, $this->request->getData());
+            $company->create_at = date("Y-m-d H:i:s");
+            $company->add_user_id = $this->Auth->user('id');
+            $company->add_update_id = $this->Auth->user('id');
             if ($this->Companies->save($company)) {
-                $this->Flash->success(__('The company has been saved.'));
+                $this->Flash->success(__('関連会社を追加しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The company could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
         $this->set(compact('company'));
     }
@@ -75,12 +81,14 @@ class CompaniesController extends AuthController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $company = $this->Companies->patchEntity($company, $this->request->getData());
+            $company->update_at = date("Y-m-d H:i:s");
+            $company->add_update_id = $this->Auth->user('id');
             if ($this->Companies->save($company)) {
-                $this->Flash->success(__('The company has been saved.'));
+                $this->Flash->success(__('関連会社を更新しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The company could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
         $this->set(compact('company'));
     }
@@ -94,13 +102,26 @@ class CompaniesController extends AuthController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $company = $this->Companies->get($id);
-        if ($this->Companies->delete($company)) {
-            $this->Flash->success(__('The company has been deleted.'));
-        } else {
-            $this->Flash->error(__('The company could not be deleted. Please, try again.'));
+        $company = $this->Companies->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $company = $this->Companies->patchEntity($company, $this->request->getData());
+            $company->is_delete = 1;
+            if ($this->Companies->save($company)) {
+                $this->Flash->success(__('関連会社を削除しました。'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('削除出来ませんでした。もう一度やり直してください。'));
         }
+        // $this->request->allowMethod(['post', 'delete']);
+        // $company = $this->Companies->get($id);
+        // if ($this->Companies->delete($company)) {
+        //     $this->Flash->success(__('関連会社を削除しました。'));
+        // } else {
+        //     $this->Flash->error(__('削除出来ませんでした。もう一度やり直してください。'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }
