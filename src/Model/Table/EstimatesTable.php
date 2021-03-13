@@ -44,10 +44,12 @@ class EstimatesTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
+            'className' => 'Users', 
             'foreignKey' => 'add_user_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Updaters', [
+            'className' => 'Users', 
             'foreignKey' => 'update_user_id',
             'joinType' => 'INNER'
         ]);
@@ -78,27 +80,12 @@ class EstimatesTable extends Table
         $validator
             ->scalar('document')
             ->requirePresence('document', 'create')
-            ->notEmpty('document');
+            ->allowEmpty('document');
 
         $validator
             ->integer('price')
             ->requirePresence('price', 'create')
             ->notEmpty('price');
-
-        $validator
-            ->boolean('is_delete')
-            ->requirePresence('is_delete', 'create')
-            ->notEmpty('is_delete');
-
-        $validator
-            ->dateTime('create_at')
-            ->requirePresence('create_at', 'create')
-            ->notEmpty('create_at');
-
-        $validator
-            ->dateTime('update_at')
-            ->requirePresence('update_at', 'create')
-            ->notEmpty('update_at');
 
         return $validator;
     }

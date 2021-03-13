@@ -21,7 +21,8 @@ class EstimatesController extends AuthController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Projects', 'Users', 'Statuses']
+            'conditions' => ['Estimates.is_delete' => 0],
+            'contain' => ['Projects', 'Users', 'Updaters', 'Statuses']
         ];
         $estimates = $this->paginate($this->Estimates);
 
@@ -38,7 +39,7 @@ class EstimatesController extends AuthController
     public function view($id = null)
     {
         $estimate = $this->Estimates->get($id, [
-            'contain' => ['Projects', 'Users', 'Statuses']
+            'contain' => ['Projects', 'Users', 'Updaters', 'Statuses']
         ]);
 
         $this->set('estimate', $estimate);
@@ -54,17 +55,26 @@ class EstimatesController extends AuthController
         $estimate = $this->Estimates->newEntity();
         if ($this->request->is('post')) {
             $estimate = $this->Estimates->patchEntity($estimate, $this->request->getData());
+            $estimate->create_at = date("Y-m-d H:i:s");
+            $estimate->add_user_id = $this->Auth->user('id');
+            $estimate->update_user_id = $this->Auth->user('id');
             if ($this->Estimates->save($estimate)) {
-                $this->Flash->success(__('The estimate has been saved.'));
+                $this->Flash->success(__('見積もりを追加しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The estimate could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $projects = $this->Estimates->Projects->find('list', ['limit' => 200]);
+        $projects = $this->Estimates->Projects->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $addUsers = $this->Estimates->Users->find('list', ['limit' => 200]);
         $updateUsers = $this->Estimates->Users->find('list', ['limit' => 200]);
-        $statuses = $this->Estimates->Statuses->find('list', ['limit' => 200]);
+        $statuses = $this->Estimates->Statuses->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('estimate', 'projects', 'addUsers', 'updateUsers', 'statuses'));
     }
 
@@ -82,17 +92,25 @@ class EstimatesController extends AuthController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $estimate = $this->Estimates->patchEntity($estimate, $this->request->getData());
+            $estimate->update_user_id = $this->Auth->user('id');
+            $estimate->update_at = date("Y-m-d H:i:s");
             if ($this->Estimates->save($estimate)) {
-                $this->Flash->success(__('The estimate has been saved.'));
+                $this->Flash->success(__('見積もりを更新しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The estimate could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $projects = $this->Estimates->Projects->find('list', ['limit' => 200]);
+        $projects = $this->Estimates->Projects->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $addUsers = $this->Estimates->Users->find('list', ['limit' => 200]);
         $updateUsers = $this->Estimates->Users->find('list', ['limit' => 200]);
-        $statuses = $this->Estimates->Statuses->find('list', ['limit' => 200]);
+        $statuses = $this->Estimates->Statuses->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('estimate', 'projects', 'addUsers', 'updateUsers', 'statuses'));
     }
 
@@ -105,13 +123,26 @@ class EstimatesController extends AuthController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $estimate = $this->Estimates->get($id);
-        if ($this->Estimates->delete($estimate)) {
-            $this->Flash->success(__('The estimate has been deleted.'));
-        } else {
-            $this->Flash->error(__('The estimate could not be deleted. Please, try again.'));
+        $estimate = $this->Estimates->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $estimate = $this->Estimates->patchEntity($estimate, $this->request->getData());
+            $estimate->is_delete = 1;
+            if ($this->Estimates->save($estimate)) {
+                $this->Flash->success(__('見積もりを削除しました。'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('削除出来ませんでした。もう一度やり直してください。'));
         }
+        // $this->request->allowMethod(['post', 'delete']);
+        // $estimate = $this->Estimates->get($id);
+        // if ($this->Estimates->delete($estimate)) {
+        //     $this->Flash->success(__('見積もりを削除しました。'));
+        // } else {
+        //     $this->Flash->error(__('削除出来ませんでした。項目を見直してください。'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }

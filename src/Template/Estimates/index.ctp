@@ -3,33 +3,27 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Estimate[]|\Cake\Collection\CollectionInterface $estimates
  */
+$this->assign('title', '見積もり一覧');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Estimate'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Statuses'), ['controller' => 'Statuses', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Status'), ['controller' => 'Statuses', 'action' => 'add']) ?></li>
-    </ul>
+<nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
+    <?= $this->Html->link('
+        <span class="icon text-white-50"><i class="fas fa-plus-square"></i></span>
+        <span class="text">見積もり追加</span>', ['action' => 'add'], ['class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
 <div class="estimates index large-9 medium-8 columns content">
-    <h3><?= __('Estimates') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table class="table table-bordered table-hover dataTable"  cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('price') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('project_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('add_user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('update_user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('status_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('is_delete') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('create_at') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('update_at') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('id', 'ID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('title', '見積もり名') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('price', '見積もり額') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト名') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('add_user_id', '登録者') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('update_user_id', '更新者') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('status_id', 'ステータス') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('create_at', '登録日') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('update_at', '更新日') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -37,31 +31,31 @@
             <tr>
                 <td><?= $this->Number->format($estimate->id) ?></td>
                 <td><?= h($estimate->title) ?></td>
-                <td><?= $this->Number->format($estimate->price) ?></td>
+                <td><?= $this->Number->format($estimate->price), "円" ?></td>
                 <td><?= $estimate->has('project') ? $this->Html->link($estimate->project->title, ['controller' => 'Projects', 'action' => 'view', $estimate->project->id]) : '' ?></td>
-                <td><?= $this->Number->format($estimate->add_user_id) ?></td>
-                <td><?= $this->Number->format($estimate->update_user_id) ?></td>
+                <td><?= $estimate->user->name ?></td>
+                <td><?= $estimate->updater->name ?></td>
                 <td><?= $estimate->has('status') ? $this->Html->link($estimate->status->name, ['controller' => 'Statuses', 'action' => 'view', $estimate->status->id]) : '' ?></td>
-                <td><?= h($estimate->is_delete) ?></td>
-                <td><?= h($estimate->create_at) ?></td>
-                <td><?= h($estimate->update_at) ?></td>
+                <td><?= $estimate->create_at ?></td>
+                <td><?= $estimate->update_at ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $estimate->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $estimate->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $estimate->id], ['confirm' => __('Are you sure you want to delete # {0}?', $estimate->id)]) ?>
+                    <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $estimate->id], ['escape' => false])?></span>
+                    <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $estimate->id], ['escape' => false])?></span>
+                    <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['action' => 'delete', $estimate->id], ['confirm' => __('見積もり名「'.$estimate->title.'」を本当に削除しますか？', $estimate->id),'escape' => false]) ?></span>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div class="paginator">
+    <div class="paginator d-flex justify-content-between">
+        <p><?= $this->Paginator->counter(['format' => __('全 {{count}} 件中 {{current}} 件表示（ページ {{page}} / {{pages}}） ')]) ?></p>
+        
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ') ?>
+            <?= $this->Paginator->prev('< ') ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(' >') ?>
+            <?= $this->Paginator->last(' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
