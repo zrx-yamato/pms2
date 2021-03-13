@@ -41,11 +41,11 @@
         </tr>
         <tr>
             <th scope="row"><?= __('登録日') ?></th>
-            <td><?= h($user->create_at) ?></td>
+            <td><?= h($user->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('更新日') ?></th>
-            <td><?= h($user->update_at) ?></td>
+            <td><?php if($user->update_at != null) echo h($user->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
     </table>
 </div>

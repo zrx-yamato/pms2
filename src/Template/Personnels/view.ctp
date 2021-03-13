@@ -37,11 +37,11 @@
         </tr>
         <tr>
             <th scope="row"><?= __('登録日') ?></th>
-            <td><?= h($personnel->create_at) ?></td>
+            <td><?= h($personnel->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('更新日') ?></th>
-            <td><?= h($personnel->update_at) ?></td>
+            <td><?php if($personnel->update_at != null) echo h($personnel->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
     </table>
 
@@ -78,8 +78,8 @@
                     <td><?= h($projects->company_id) ?></td>
                     <td><?= h($projects->personnel_id) ?></td>
                     <td><?= h($projects->is_delete) ?></td>
-                    <td><?= h($projects->create_at) ?></td>
-                    <td><?= h($projects->update_at) ?></td>
+                    <td><?= h($projects->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                    <td><?php if($projects->update_at != null) echo h($projects->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                     <td><?= h($projects->add_user_id) ?></td>
                     <td><?= h($projects->add_update_id) ?></td>
                     <td class="actions">
@@ -128,8 +128,8 @@
                 <td><?= h($tasks->project_id) ?></td>
                 <td><?= h($tasks->personnel_id) ?></td>
                 <td><?= h($tasks->is_delete) ?></td>
-                <td><?= h($tasks->create_at) ?></td>
-                <td><?= h($tasks->update_at) ?></td>
+                <td><?= h($tasks->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                <td><?php if($tasks->update_at != null) echo h($tasks->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                 <td><?= h($tasks->add_user_id) ?></td>
                 <td><?= h($tasks->add_update_id) ?></td>
                 <td class="actions">

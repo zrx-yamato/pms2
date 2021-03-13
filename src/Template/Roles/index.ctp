@@ -27,8 +27,8 @@ $this->assign('title', '権限一覧');
                 <tr>
                     <td><?= $this->Number->format($role->id) ?></td>
                     <td><?= h($role->name) ?></td>
-                    <td><?= h($role->create_at) ?></td>
-                    <td><?= h($role->update_at) ?></td>
+                    <td><?= h($role->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                    <td><?php if($role->update_at != null) echo h($role->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                     <td class="actions">
                         <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $role->id], ['escape' => false])?></span>
                         <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $role->id], ['escape' => false])?></span>

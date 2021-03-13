@@ -30,8 +30,8 @@
                 <td><?= h($company->name) ?></td>
                 <td><?= h($company->tel) ?></td>
                 <td><?= h($company->address) ?></td>
-                <td><?= h($company->create_at) ?></td>
-                <td><?= h($company->update_at) ?></td>
+                <td><?= h($company->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                <td><?php if($company->update_at != null) echo h($company->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                 <td class="actions">
                     <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $company->id], ['escape' => false])?></span>
                     <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $company->id], ['escape' => false])?></span>

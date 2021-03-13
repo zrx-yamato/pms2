@@ -33,8 +33,8 @@
                     <td><?= h($user->mail) ?></td>
                     <td><?= h($user->tel) ?></td>
                     <td><?= $user->has('role') ? $this->Html->link($user->role->name, ['controller' => 'Roles', 'action' => 'view', $user->role->id]) : '' ?></td>
-                    <td><?= h($user->create_at) ?></td>
-                    <td><?= h($user->update_at) ?></td>
+                    <td><?= h($user->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                    <td><?php if($user->update_at != null) echo h($user->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                     <td class="actions">
                         <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $user->id], ['escape' => false])?></span>
                         <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $user->id], ['escape' => false])?></span>

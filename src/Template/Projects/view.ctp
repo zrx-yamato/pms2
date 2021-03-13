@@ -21,9 +21,9 @@
 <div class="paginator d-flex justify-content-between">
     <div>ID:<?= $this->Number->format($project->id) ?></div>
     <div>
-        登録日:<?= h($project->create_at->i18nFormat('YYYY/MM/dd')) ?>(<?= $project->user->name?>)&nbsp;
+        登録日:<?= h($project->create_at->i18nFormat('yyyy年MM月dd日')) ?>(<?= $project->user->name?>)&nbsp;
         <?php if($project->update_at != null){ 
-            echo('更新日:' . h($project->update_at->i18nFormat('YYYY/MM/dd')));
+            echo('更新日:' . h($project->update_at->i18nFormat('yyyy年MM月dd日')));
             echo '(' . $project->updater->name . ')';
         } ?>
     </div>
@@ -95,11 +95,11 @@
                 <td><?= h($tasks->personnel->name) ?></td>
                 <td><?= h($tasks->user->name); ?></td>
                 <td><?= h($tasks->updater->name) ?></td>
-                <td><?= h($tasks->create_at->i18nFormat('YYYY/MM/dd')) ?></td>
+                <td><?= h($tasks->create_at->i18nFormat('YYYY年MM月dd日')) ?></td>
                 <td>
                     <?php
                         if($tasks->update_at != null){
-                            echo h($tasks->update_at->i18nFormat('YYYY/MM/dd'));
+                            echo h($tasks->update_at->i18nFormat('YYYY年MM月dd日'));
                         }
                     ?>
                 </td>
@@ -145,11 +145,11 @@
                 <td><?= h(number_format($estimates->price)) ?>円</td>
                 <td><?= h($estimates->user->name) ?></td>
                 <td><?= h($estimates->updater->name) ?></td>
-                <td><?= h($estimates->create_at->i18nFormat('YYYY/MM/dd')) ?></td>
+                <td><?= h($estimates->create_at->i18nFormat('YYYY年MM月dd日')) ?></td>
                 <td>
                     <?php
                         if($estimates->update_at != null)
-                            echo h($estimates->update_at->i18nFormat('YYYY/MM/dd'));
+                            echo h($estimates->update_at->i18nFormat('YYYY年MM月dd日'));
                     ?>
                 </td>
                 <td class="actions">

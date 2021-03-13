@@ -21,9 +21,9 @@
 <div class="paginator d-flex justify-content-between mb-2">
     <div>ID:<?= $this->Number->format($task->id) ?></div>
     <div>
-        登録日:<?= h($task->create_at->i18nFormat('YYYY/MM/dd')) ?>(<?= $task->user->name?>)&nbsp;
+        登録日:<?= h($task->create_at->i18nFormat('yyyy年MM月dd日')) ?>(<?= $task->user->name?>)&nbsp;
         <?php if($task->update_at != null){ 
-            echo('更新日:' . h($task->update_at->i18nFormat('YYYY/MM/dd')));
+            echo('更新日:' . h($task->update_at->i18nFormat('yyyy年MM月dd日')));
             echo '(' . $task->updater->name . ')';
         } ?>
     </div>

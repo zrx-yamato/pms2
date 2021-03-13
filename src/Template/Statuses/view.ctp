@@ -29,11 +29,11 @@
         </tr>
         <tr>
             <th scope="row"><?= __('登録日') ?></th>
-            <td><?= h($status->create_at) ?></td>
+            <td><?= h($status->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('更新日') ?></th>
-            <td><?= h($status->update_at) ?></td>
+            <td><?php if($status->update_at != null) echo h($status->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
     </table>
     <!-- <div class="related">
@@ -65,8 +65,8 @@
                 <td><?= h($estimates->update_user_id) ?></td>
                 <td><?= h($estimates->status_id) ?></td>
                 <td><?= h($estimates->is_delete) ?></td>
-                <td><?= h($estimates->create_at) ?></td>
-                <td><?= h($estimates->update_at) ?></td>
+                <td><?= h($estimates->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                <td><?php if($estimates->update_at != null) echo h($estimates->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Estimates', 'action' => 'view', $estimates->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Estimates', 'action' => 'edit', $estimates->id]) ?>
@@ -108,8 +108,8 @@
                 <td><?= h($tasks->project_id) ?></td>
                 <td><?= h($tasks->personnel_id) ?></td>
                 <td><?= h($tasks->is_delete) ?></td>
-                <td><?= h($tasks->create_at) ?></td>
-                <td><?= h($tasks->update_at) ?></td>
+                <td><?= h($tasks->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                <td><?php if($tasks->update_at != null) echo h($tasks->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                 <td><?= h($tasks->add_user_id) ?></td>
                 <td><?= h($tasks->add_update_id) ?></td>
                 <td class="actions">

@@ -35,8 +35,8 @@
                     <td><?= $project->has('personnel') ? $this->Html->link($project->personnel->name, ['controller' => 'Personnels', 'action' => 'view', $project->personnel->id]) : '' ?></td>
                     <td><?= $this->Html->link($project->user->name, ['controller' => 'Users', 'action' => 'view', $project->user->id]) ?></td>
                     <td><?= $this->Html->link($project->updater->name, ['controller' => 'Users', 'action' => 'view', $project->updater->id]) ?></td>
-                    <td><?= h($project->create_at) ?></td>
-                    <td><?= h($project->update_at) ?></td>
+                    <td><?= h($project->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                    <td><?php if($project->update_at != null) echo h($project->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                     <td class="actions">
                         <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $project->id], ['escape' => false])?></span>
                         <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $project->id], ['escape' => false])?></span>

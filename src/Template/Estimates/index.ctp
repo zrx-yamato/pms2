@@ -36,8 +36,8 @@ $this->assign('title', '見積もり一覧');
                 <td><?= $estimate->user->name ?></td>
                 <td><?= $estimate->updater->name ?></td>
                 <td><?= $estimate->has('status') ? $this->Html->link($estimate->status->name, ['controller' => 'Statuses', 'action' => 'view', $estimate->status->id]) : '' ?></td>
-                <td><?= $estimate->create_at ?></td>
-                <td><?= $estimate->update_at ?></td>
+                <td><?= $estimate->create_at->i18nFormat('yyyy年MM月dd日') ?></td>
+                <td><?php if($estimate->update_at != null) echo $estimate->update_at->i18nFormat('yyyy年MM月dd日') ?></td>
                 <td class="actions">
                     <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $estimate->id], ['escape' => false])?></span>
                     <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $estimate->id], ['escape' => false])?></span>

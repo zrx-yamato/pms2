@@ -29,11 +29,11 @@
         </tr>
         <tr>
             <th scope="row"><?= __('登録日') ?></th>
-            <td><?= h($role->create_at) ?></td>
+            <td><?= h($role->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('更新日') ?></th>
-            <td><?= h($role->update_at) ?></td>
+            <td><?php if($role->update_at != null) echo h($role->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
     </table>
 <!-- 
@@ -61,8 +61,8 @@
                     <td><?= h($users->mail) ?></td>
                     <td><?= h($users->tel) ?></td>
                     <td><?= h($users->role_id) ?></td>
-                    <td><?= h($users->create_at) ?></td>
-                    <td><?= h($users->update_at) ?></td>
+                    <td><?php if($users->create_at != null) echo h($users->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                    <td><?php if($users->update_at != null) echo h($users->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?>

@@ -37,8 +37,8 @@ $this->assign('title', 'タスク一覧');
                     <td><?= $task->has('personnel') ? $this->Html->link($task->personnel->name, ['controller' => 'Personnels', 'action' => 'view', $task->personnel->id]) : '' ?></td>
                     <td><?= h($task->user->name) ?></td>
                     <td><?= h($task->updater->name) ?></td>
-                    <td><?= h($task->create_at) ?></td>
-                    <td><?= h($task->update_at) ?></td>
+                    <td><?= h($task->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                    <td><?php if($task->update_at != null) echo h($task->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                     <td class="actions">
                         <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $task->id], ['escape' => false])?></span>
                         <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $task->id], ['escape' => false])?></span>

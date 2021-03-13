@@ -21,9 +21,9 @@
 <div class="paginator d-flex justify-content-between">
     <div>ID:<?= $this->Number->format($estimate->id) ?></div>
     <div>
-        登録日:<?= h($estimate->create_at->i18nFormat('YYYY/MM/dd')) ?>(<?= $estimate->user->name?>)&nbsp;
+        登録日:<?= h($estimate->create_at->i18nFormat('yyyy年MM月dd日')) ?>(<?= $estimate->user->name?>)&nbsp;
         <?php if($estimate->update_at != null){ 
-            echo('更新日:' . h($estimate->update_at->i18nFormat('YYYY/MM/dd')));
+            echo('更新日:' . h($estimate->update_at->i18nFormat('yyyy年MM月dd日')));
             echo '(' . $estimate->updater->name . ')';
         } ?>
     </div>

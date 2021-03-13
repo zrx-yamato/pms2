@@ -30,8 +30,8 @@
                 <td><?= h($personnel->name) ?></td>
                 <td><?= h($personnel->mail) ?></td>
                 <td><?= $personnel->has('company') ? $this->Html->link($personnel->company->name, ['controller' => 'Companies', 'action' => 'view', $personnel->company->id]) : '' ?></td>
-                <td><?= h($personnel->create_at) ?></td>
-                <td><?= h($personnel->update_at) ?></td>
+                <td><?= h($personnel->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                <td><?php if($personnel->update_at != null) echo h($personnel->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                 <td class="actions">
                     <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $personnel->id], ['escape' => false])?></span>
                     <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $personnel->id], ['escape' => false])?></span>

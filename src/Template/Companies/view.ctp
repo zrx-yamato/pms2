@@ -37,11 +37,11 @@
         </tr>
         <tr>
             <th scope="row"><?= __('登録日') ?></th>
-            <td><?= h($company->create_at) ?></td>
+            <td><?= h($company->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('更新日') ?></th>
-            <td><?= h($company->update_at) ?></td>
+            <td><?php if($company->update_at != null) echo h($company->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
     </table>
 <!-- 
@@ -68,8 +68,8 @@
                 <td><?= h($personnels->mail) ?></td>
                 <td><?= h($personnels->company_id) ?></td>
                 <td><?= h($personnels->is_delete) ?></td>
-                <td><?= h($personnels->create_at) ?></td>
-                <td><?= h($personnels->update_at) ?></td>
+                <td><?= h($personnels->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                <td><?php if($personnels->update_at != null) echo h($personnels->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Personnels', 'action' => 'view', $personnels->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Personnels', 'action' => 'edit', $personnels->id]) ?>
@@ -111,8 +111,8 @@
                 <td><?= h($projects->company_id) ?></td>
                 <td><?= h($projects->personnel_id) ?></td>
                 <td><?= h($projects->is_delete) ?></td>
-                <td><?= h($projects->create_at) ?></td>
-                <td><?= h($projects->update_at) ?></td>
+                <td><?= h($projects->create_at->i18nFormat('yyyy年MM月dd日')) ?></td>
+                <td><?php if($projects->update_at != null) echo h($projects->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                 <td><?= h($projects->add_user_id) ?></td>
                 <td><?= h($projects->add_update_id) ?></td>
                 <td class="actions">
