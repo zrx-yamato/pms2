@@ -14,12 +14,12 @@
     <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('ID') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('関連会社名') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('電話番号') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('住所') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('登録日') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('更新日') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('id', 'ID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('name', '関連会社名') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('tel', '電話番号') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('address', '住所') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('create_at', '登録日') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('update_at', '更新日') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>

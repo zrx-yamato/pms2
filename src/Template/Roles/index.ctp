@@ -15,10 +15,10 @@ $this->assign('title', '権限一覧');
         <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <th scope="col"><?= $this->Paginator->sort('ID') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('権限名') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('登録日') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('更新日') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('id', 'ID') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('name', '権限名') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('create_at', '登録日') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('update_at', '更新日') ?></th>
                     <th scope="col" class="actions"></th>
                 </tr>
             </thead>

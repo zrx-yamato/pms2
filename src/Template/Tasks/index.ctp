@@ -15,15 +15,15 @@ $this->assign('title', 'タスク一覧');
         <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <th scope="col"><?= $this->Paginator->sort('ID') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('進捗状況') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('タスク名') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('プロジェクト') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('担当者') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('登録日') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('更新日') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('登録者') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('更新者') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('id', 'ID') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('status_id', '進捗状況') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('title', 'タスク名') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('personnel_id', '担当者') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('add_user_id', '登録者') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('update_user_id', '更新者') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('create_at', '登録日') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('update_at', '更新日') ?></th>
                     <th scope="col" class="actions"></th>
                 </tr>
             </thead>
@@ -35,10 +35,10 @@ $this->assign('title', 'タスク一覧');
                     <td><?= h($task->title) ?></td>
                     <td><?= $task->has('project') ? $this->Html->link($task->project->title, ['controller' => 'Projects', 'action' => 'view', $task->project->id]) : '' ?></td>
                     <td><?= $task->has('personnel') ? $this->Html->link($task->personnel->name, ['controller' => 'Personnels', 'action' => 'view', $task->personnel->id]) : '' ?></td>
-                    <td><?= h($task->create_at) ?></td>
-                    <td><?= h($task->update_at) ?></td>
                     <td><?= h($task->user->name) ?></td>
                     <td><?= h($task->updater->name) ?></td>
+                    <td><?= h($task->create_at) ?></td>
+                    <td><?= h($task->update_at) ?></td>
                     <td class="actions">
                         <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $task->id], ['escape' => false])?></span>
                         <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $task->id], ['escape' => false])?></span>
