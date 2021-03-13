@@ -73,10 +73,14 @@ class ProjectsController extends AuthController
             }
             $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $companies = $this->Projects->Companies->find('list', ['limit' => 200]);
-        $personnels = $this->Projects->Personnels->find('list', ['limit' => 200]);
-        $addUsers = $this->Projects->Users->find('list', ['limit' => 200]);
-        $addUpdates = $this->Projects->Users->find('list', ['limit' => 200]);
+        $companies = $this->Projects->Companies->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
+        $personnels = $this->Projects->Personnels->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('project', 'companies', 'personnels', 'addUsers', 'addUpdates'));
     }
 
@@ -103,10 +107,14 @@ class ProjectsController extends AuthController
             }
             $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $companies = $this->Projects->Companies->find('list', ['limit' => 200]);
-        $personnels = $this->Projects->Personnels->find('list', ['limit' => 200]);
-        $addUsers = $this->Projects->Users->find('list', ['limit' => 200]);
-        $addUpdates = $this->Projects->Users->find('list', ['limit' => 200]);
+        $companies = $this->Projects->Companies->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
+        $personnels = $this->Projects->Personnels->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('project', 'companies', 'personnels', 'addUsers', 'addUpdates'));
     }
 

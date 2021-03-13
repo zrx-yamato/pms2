@@ -66,7 +66,10 @@ class UsersController extends AuthController
             }
             $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        $roles = $this->Users->Roles->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('user', 'roles'));
     }
 
@@ -92,7 +95,10 @@ class UsersController extends AuthController
             }
             $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        $roles = $this->Users->Roles->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('user', 'roles'));
     }
 

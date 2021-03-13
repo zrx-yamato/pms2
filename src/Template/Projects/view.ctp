@@ -96,7 +96,13 @@
                 <td><?= h($tasks->user->name); ?></td>
                 <td><?= h($tasks->updater->name) ?></td>
                 <td><?= h($tasks->create_at->i18nFormat('YYYY/MM/dd')) ?></td>
-                <td><?= h($tasks->update_at->i18nFormat('YYYY/MM/dd')) ?></td>
+                <td>
+                    <?php
+                        if($tasks->update_at != null){
+                            echo h($tasks->update_at->i18nFormat('YYYY/MM/dd'));
+                        }
+                    ?>
+                </td>
                 <td class="actions">
                     <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['controller' => 'tasks', 'action' => 'view', $tasks->id], ['escape' => false])?></span>
                     <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['controller' => 'tasks', 'action' => 'edit', $tasks->id], ['escape' => false])?></span>

@@ -65,11 +65,18 @@ class TasksController extends AuthController
             }
             $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $statuses = $this->Tasks->Statuses->find('list', ['limit' => 200]);
-        $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
-        $personnels = $this->Tasks->Personnels->find('list', ['limit' => 200]);
-        $addUsers = $this->Tasks->Users->find('list', ['limit' => 200]);
-        $addUpdates = $this->Tasks->Users->find('list', ['limit' => 200]);
+        $statuses = $this->Tasks->Statuses->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
+        $projects = $this->Tasks->Projects->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
+        $personnels = $this->Tasks->Personnels->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('task', 'statuses', 'projects', 'personnels', 'addUsers', 'addUpdates'));
     }
 
@@ -96,11 +103,18 @@ class TasksController extends AuthController
             }
             $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $statuses = $this->Tasks->Statuses->find('list', ['limit' => 200]);
-        $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
-        $personnels = $this->Tasks->Personnels->find('list', ['limit' => 200]);
-        $addUsers = $this->Tasks->Users->find('list', ['limit' => 200]);
-        $addUpdates = $this->Tasks->Users->find('list', ['limit' => 200]);
+        $statuses = $this->Tasks->Statuses->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
+        $projects = $this->Tasks->Projects->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
+        $personnels = $this->Tasks->Personnels->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('task', 'statuses', 'projects', 'personnels', 'addUsers', 'addUpdates'));
     }
 
