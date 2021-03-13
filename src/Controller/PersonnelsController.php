@@ -21,7 +21,8 @@ class PersonnelsController extends AuthController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Companies']
+            'contain' => ['Companies'],
+            'conditions' => ['Personnels.is_delete' => 0]
         ];
         $personnels = $this->paginate($this->Personnels);
 
@@ -54,14 +55,19 @@ class PersonnelsController extends AuthController
         $personnel = $this->Personnels->newEntity();
         if ($this->request->is('post')) {
             $personnel = $this->Personnels->patchEntity($personnel, $this->request->getData());
+            $personnel->create_at = date("Y-m-d H:i:s");
+            
             if ($this->Personnels->save($personnel)) {
-                $this->Flash->success(__('The personnel has been saved.'));
+                $this->Flash->success(__('担当者を追加しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The personnel could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $companies = $this->Personnels->Companies->find('list', ['limit' => 200]);
+        $companies = $this->Personnels->Companies->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('personnel', 'companies'));
     }
 
@@ -79,14 +85,19 @@ class PersonnelsController extends AuthController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $personnel = $this->Personnels->patchEntity($personnel, $this->request->getData());
+            $personnel->update_at = date("Y-m-d H:i:s");
+
             if ($this->Personnels->save($personnel)) {
-                $this->Flash->success(__('The personnel has been saved.'));
+                $this->Flash->success(__('担当者を更新しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The personnel could not be saved. Please, try again.'));
+            $this->Flash->error(__('保存出来ませんでした。項目を見直してください。'));
         }
-        $companies = $this->Personnels->Companies->find('list', ['limit' => 200]);
+        $companies = $this->Personnels->Companies->find('list', [
+            'conditions' => ['is_delete' => 0],
+            'limit' => 200
+        ]);
         $this->set(compact('personnel', 'companies'));
     }
 
@@ -99,13 +110,26 @@ class PersonnelsController extends AuthController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $personnel = $this->Personnels->get($id);
-        if ($this->Personnels->delete($personnel)) {
-            $this->Flash->success(__('The personnel has been deleted.'));
-        } else {
-            $this->Flash->error(__('The personnel could not be deleted. Please, try again.'));
+        $personnel = $this->Personnels->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $personnel = $this->Personnels->patchEntity($personnel, $this->request->getData());
+            $personnel->is_delete = 1;
+            if ($this->Personnels->save($personnel)) {
+                $this->Flash->success(__('担当者を削除しました。'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('削除出来ませんでした。もう一度やり直してください。'));
         }
+        // $this->request->allowMethod(['post', 'delete']);
+        // $personnel = $this->Personnels->get($id);
+        // if ($this->Personnels->delete($personnel)) {
+        //     $this->Flash->success(__('The personnel has been deleted.'));
+        // } else {
+        //     $this->Flash->error(__('The personnel could not be deleted. Please, try again.'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }
