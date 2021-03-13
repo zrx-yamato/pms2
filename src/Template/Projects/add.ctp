@@ -8,16 +8,12 @@
 <div class="projects form large-9 medium-8 columns content">
     <?= $this->Form->create($project) ?>
     <fieldset>
-        <!-- <pre><?php var_dump($companies);?></pre> -->
-        <?php 
-            //echo $this->Form->select('クライアント', $personnels, ['label' => '担当者', 'class' => 'w-auto form-control']);
-        ?>
         <?php
             echo $this->Form->control('title', ['label' => 'プロジェクト名', 'class' => 'form-control']);
             echo $this->Form->control('git_data', ['label' => 'git情報', 'class' => 'form-control']);
             echo $this->Form->control('id_pass_area', ['label' => 'ID、パスワード情報', 'class' => 'form-control']);
             echo $this->Form->control('memo', ['label' => 'メモエリア', 'class' => 'form-control']);
-            echo $this->Form->control('company_id', ['label' => 'クライアント', 'options' => $companies, 'class' => 'w-auto form-control']);
+            echo $this->Form->control('company_id', ['label' => '関連会社名', 'options' => $companies, 'class' => 'w-auto form-control']);
             echo $this->Form->control('personnel_id', ['label' => '担当者','options' => $personnels, 'class' => 'w-auto form-control']);
         ?>
     </fieldset>

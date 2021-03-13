@@ -14,7 +14,7 @@
             echo $this->Form->control('git_data', ['label' => 'git情報', 'class' => 'form-control']);
             echo $this->Form->control('id_pass_area', ['label' => 'ID、パスワード情報', 'class' => 'form-control']);
             echo $this->Form->control('memo', ['label' => 'メモ', 'class' => 'form-control']);
-            echo $this->Form->control('company_id', ['label' => 'クライアント', 'options' => $companies, 'class' => 'w-auto form-control']);
+            echo $this->Form->control('company_id', ['label' => '関連会社名', 'options' => $companies, 'class' => 'w-auto form-control']);
             echo $this->Form->control('personnel_id', ['label' => '担当者', 'options' => $personnels, 'class' => 'w-auto form-control']);
         ?>
     </fieldset>

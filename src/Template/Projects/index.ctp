@@ -17,7 +17,7 @@
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('id', 'ID') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('title', 'プロジェクト') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('company_id', 'クライアント') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('company_id', '関連会社名') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('personnel_id', '担当者') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('add_user_id', '登録者') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('add_update_id', '更新者') ?></th>

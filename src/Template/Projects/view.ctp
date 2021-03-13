@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Project $project
  */
     $this->assign('title', '「' . $project->title . '」プロジェクトの詳細');
-    $this->assign('date', 'test');
 ?>
 <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
     <!-- 編集 -->
@@ -40,7 +39,7 @@
             <td><?= h($project->git_data) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('クライアント') ?></th>
+            <th scope="row"><?= __('関連会社名') ?></th>
             <td><?= $project->has('company') ? $this->Html->link($project->company->name, ['controller' => 'Companies', 'action' => 'view', $project->company->id]) : '' ?></td>
         </tr>
         <tr>
@@ -141,7 +140,12 @@
                 <td><?= h($estimates->user->name) ?></td>
                 <td><?= h($estimates->updater->name) ?></td>
                 <td><?= h($estimates->create_at->i18nFormat('YYYY/MM/dd')) ?></td>
-                <td><?= h($estimates->update_at->i18nFormat('YYYY/MM/dd')) ?></td>
+                <td>
+                    <?php
+                        if($estimates->update_at != null)
+                            echo h($estimates->update_at->i18nFormat('YYYY/MM/dd'));
+                    ?>
+                </td>
                 <td class="actions">
                     <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['controller' => 'estimates', 'action' => 'view', $estimates->id], ['escape' => false])?></span>
                     <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['controller' => 'estimates', 'action' => 'edit', $estimates->id], ['escape' => false])?></span>

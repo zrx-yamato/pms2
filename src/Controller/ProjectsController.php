@@ -21,6 +21,7 @@ class ProjectsController extends AuthController
     public function index()
     {
         $this->paginate = [
+            'conditions' => ['Projects.is_delete' => 0],
             'contain' => ['Companies', 'Personnels', 'Users', 'Updaters']
         ];
         $projects = $this->paginate($this->Projects);
@@ -118,13 +119,26 @@ class ProjectsController extends AuthController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $project = $this->Projects->get($id);
-        if ($this->Projects->delete($project)) {
-            $this->Flash->success(__('プロジェクトを削除しました。'));
-        } else {
-            $this->Flash->error(__('The project could not be deleted. Please, try again.'));
+        $project = $this->Projects->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $project = $this->Projects->patchEntity($project, $this->request->getData());
+            $project->is_delete = 1;
+            if ($this->Projects->save($project)) {
+                $this->Flash->success(__('プロジェクトを削除しました。'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('削除出来ませんでした。もう一度やり直してください。'));
         }
+        // $this->request->allowMethod(['post', 'delete']);
+        // $project = $this->Projects->get($id);
+        // if ($this->Projects->delete($project)) {
+        //     $this->Flash->success(__('プロジェクトを削除しました。'));
+        // } else {
+        //     $this->Flash->error(__('削除出来ませんでした。項目を見直してください。'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }
