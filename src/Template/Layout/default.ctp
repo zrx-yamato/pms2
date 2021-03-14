@@ -108,8 +108,6 @@ $cakeDescription = '案件管理システム';
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <?php if($authuser["role_id"] == 1) :?>
-
             <!-- Heading -->
             <div class="sidebar-heading">
                 管理メニュー
@@ -136,8 +134,6 @@ $cakeDescription = '案件管理システム';
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
-            <?php endif;?>
             
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -297,11 +293,11 @@ $cakeDescription = '案件管理システム';
     <?= $this->Html->script('original') ?>
 
     <!-- Page level plugins -->
-    <?= $this->Html->script('vendor/chart.js/Chart.min') ?>
+    <?php //$this->Html->script('vendor/chart.js/Chart.min') ?>
 
     <!-- Page level custom scripts -->
-    <?= $this->Html->script('demo/chart-area-demo.js') ?>
-    <?= $this->Html->script('demo/chart-pie-demo.js') ?>
+    <?php //$this->Html->script('demo/chart-area-demo.js') ?>
+    <?php //$this->Html->script('demo/chart-pie-demo.js') ?>
 
 </body>
 </html>
