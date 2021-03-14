@@ -5,6 +5,7 @@
  */
     $this->assign('title', '「' . $project->title . '」プロジェクトの詳細');
 ?>
+<?php if($user->role_id != 4) :?> 
 <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
     <!-- 編集 -->
     <?= $this->Html->link('
@@ -17,6 +18,7 @@
         <span class="text">削除</span>',
         ['action' => 'delete', $project->id], ['confirm' => __('ID{0}:' . $project->title . 'を本当に削除しますか？', $project->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
+<?php endif ?>
 
 <div class="paginator d-flex justify-content-between">
     <div>ID:<?= $this->Number->format($project->id) ?></div>

@@ -20,13 +20,29 @@ class TasksController extends AuthController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Statuses', 'Projects', 'Personnels', 'Users', 'Updaters'],
-            'conditions' => ['Tasks.is_delete' => 0]
-        ];
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
+        //編集者、管理者権限の場合
+        if( $user->role_id > 2){
+            $this->paginate = [
+                'conditions' => [
+                    'Tasks.is_delete' => 0,
+                    'Tasks.add_user_id' => $user->id,
+                ],
+                'contain' => ['Statuses', 'Projects', 'Personnels', 'Users', 'Updaters'],
+            ];
+        //閲覧者権限の場合
+        } else {
+            $this->paginate = [
+                'conditions' => ['Tasks.is_delete' => 0],
+                'contain' => ['Statuses', 'Projects', 'Personnels', 'Users', 'Updaters'],
+            ];
+        }
         $tasks = $this->paginate($this->Tasks);
 
-        $this->set(compact('tasks'));
+        $this->set(compact('tasks', 'user'));
     }
 
     /**
@@ -38,11 +54,15 @@ class TasksController extends AuthController
      */
     public function view($id = null)
     {
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
         $task = $this->Tasks->get($id, [
             'contain' => ['Statuses', 'Projects', 'Personnels', 'Users', 'Updaters']
         ]);
 
-        $this->set('task', $task);
+        $this->set(compact('task', 'user'));
     }
 
     /**

@@ -20,13 +20,31 @@ class ProjectsController extends AuthController
      */
     public function index()
     {
-        $this->paginate = [
-            'conditions' => ['Projects.is_delete' => 0],
-            'contain' => ['Companies', 'Personnels', 'Users', 'Updaters']
-        ];
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
+        //編集者、管理者権限の場合
+        if( $user->role_id > 2){
+            $this->paginate = [
+                'conditions' => [
+                    'Projects.is_delete' => 0,
+                    'Projects.add_user_id' => $user->id,
+                ],
+                'contain' => ['Companies', 'Personnels', 'Users', 'Updaters']
+            ];
+        //閲覧者権限の場合
+        } else {
+            $this->paginate = [
+                'conditions' => [
+                    'Projects.is_delete' => 0,
+                ],
+                'contain' => ['Companies', 'Personnels', 'Users', 'Updaters']
+            ];
+        }
         $projects = $this->paginate($this->Projects);
 
-        $this->set(compact('projects'));
+        $this->set(compact('projects', 'user'));
     }
 
     /**
@@ -38,6 +56,10 @@ class ProjectsController extends AuthController
      */
     public function view($id = null)
     {
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
         $project = $this->Projects->get($id, [
             'contain' => [
                 'Companies', 'Personnels', 'Users', 'Updaters', 
@@ -50,7 +72,7 @@ class ProjectsController extends AuthController
             ]
         ]);
 
-        $this->set('project', $project);
+        $this->set(compact('project', 'user'));
     }
 
     /**

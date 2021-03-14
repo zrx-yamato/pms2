@@ -5,6 +5,7 @@
  */
 	$this->assign('title', '「' . $company->name . '」関連会社の詳細');
 ?>
+<?php if($user->role_id != 4) :?> 
 <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
     <!-- 編集 -->
     <?= $this->Html->link('
@@ -17,6 +18,8 @@
         <span class="text">削除</span>',
         ['action' => 'delete', $company->id], ['confirm' => __('関連会社名「'.$company->name.'」を本当に削除しますか？', $company->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
+<?php endif ?>
+
 <div class="companies view large-9 medium-8 columns content">
     <table class="table table-striped">
         <tr>

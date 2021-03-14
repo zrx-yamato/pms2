@@ -5,11 +5,13 @@
  */
 $this->assign('title', '権限一覧');
 ?>
-<nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
-    <?= $this->Html->link('
-        <span class="icon text-white-50"><i class="fas fa-plus-square"></i></span>
-        <span class="text">権限追加</span>', ['action' => 'add'], ['class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
-</nav>
+<?php if($authuser["role_id"] == 1) :?>
+    <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
+        <?= $this->Html->link('
+            <span class="icon text-white-50"><i class="fas fa-plus-square"></i></span>
+            <span class="text">権限追加</span>', ['action' => 'add'], ['class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
+    </nav>
+<?php endif;?>
 <div class="roles index large-9 medium-8 columns content">
     <div class="table-responsive">
         <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
@@ -31,8 +33,10 @@ $this->assign('title', '権限一覧');
                     <td><?php if($role->update_at != null) echo h($role->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                     <td class="actions">
                         <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $role->id], ['escape' => false])?></span>
-                        <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $role->id], ['escape' => false])?></span>
-                        <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['action' => 'delete', $role->id], ['confirm' => __('権限名「'.$role->name.'」を本当に削除しますか？', $role->id),'escape' => false]) ?></span>
+                        <?php if($authuser["role_id"] == 1) :?>
+                            <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $role->id], ['escape' => false])?></span>
+                            <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['action' => 'delete', $role->id], ['confirm' => __('権限名「'.$role->name.'」を本当に削除しますか？', $role->id),'escape' => false]) ?></span>
+                        <?php endif;?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

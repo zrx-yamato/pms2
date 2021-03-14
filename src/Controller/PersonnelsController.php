@@ -20,13 +20,17 @@ class PersonnelsController extends AuthController
      */
     public function index()
     {
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
         $this->paginate = [
             'contain' => ['Companies'],
             'conditions' => ['Personnels.is_delete' => 0]
         ];
         $personnels = $this->paginate($this->Personnels);
 
-        $this->set(compact('personnels'));
+        $this->set(compact('personnels', 'user'));
     }
 
     /**
@@ -38,11 +42,15 @@ class PersonnelsController extends AuthController
      */
     public function view($id = null)
     {
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
         $personnel = $this->Personnels->get($id, [
             'contain' => ['Companies', 'Projects', 'Tasks']
         ]);
 
-        $this->set('personnel', $personnel);
+        $this->set(compact('personnel', 'user'));
     }
 
     /**

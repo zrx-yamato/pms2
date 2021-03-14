@@ -20,13 +20,17 @@ class EstimatesController extends AuthController
      */
     public function index()
     {
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
         $this->paginate = [
             'conditions' => ['Estimates.is_delete' => 0],
             'contain' => ['Projects', 'Users', 'Updaters', 'Statuses']
         ];
         $estimates = $this->paginate($this->Estimates);
 
-        $this->set(compact('estimates'));
+        $this->set(compact('estimates', 'user'));
     }
 
     /**
@@ -38,11 +42,15 @@ class EstimatesController extends AuthController
      */
     public function view($id = null)
     {
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+        
         $estimate = $this->Estimates->get($id, [
             'contain' => ['Projects', 'Users', 'Updaters', 'Statuses']
         ]);
 
-        $this->set('estimate', $estimate);
+        $this->set(compact('estimate', 'user'));
     }
 
     /**

@@ -5,18 +5,20 @@
  */
     $this->assign('title', '「' . h($role->name) . '」権限の詳細');
 ?>
-<nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
-    <!-- 編集 -->
-    <?= $this->Html->link('
-        <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
-        <span class="text">編集</span>',
-        ['action' => 'edit', $role->id], ['class' => 'btn btn-secondary btn-icon-split mr-2', 'escape' => false]) ?>
-    <!-- 削除 -->
-    <?= $this->Form->postLink('
-        <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
-        <span class="text">削除</span>',
-        ['action' => 'delete', $role->id], ['confirm' => __('権限名「'.$role->name.'」を本当に削除しますか？', $role->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
-</nav>
+<?php if($authuser["role_id"] == 1) :?>
+    <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
+        <!-- 編集 -->
+        <?= $this->Html->link('
+            <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
+            <span class="text">編集</span>',
+            ['action' => 'edit', $role->id], ['class' => 'btn btn-secondary btn-icon-split mr-2', 'escape' => false]) ?>
+        <!-- 削除 -->
+        <?= $this->Form->postLink('
+            <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
+            <span class="text">削除</span>',
+            ['action' => 'delete', $role->id], ['confirm' => __('権限名「'.$role->name.'」を本当に削除しますか？', $role->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
+    </nav>
+<?php endif;?>
 <div class="roles view large-9 medium-8 columns content">
     <table class="table table-striped">
         <tr>

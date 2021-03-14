@@ -5,11 +5,13 @@
  */
 	$this->assign('title', 'ユーザー一覧');
 ?>
+<?php if($authuser["role_id"] == 1) :?>
 <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
     <?= $this->Html->link('
         <span class="icon text-white-50"><i class="fas fa-user-plus"></i></span>
         <span class="text">ユーザー追加</span>', ['action' => 'add'], ['class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
+<?php endif;?>
 <div class="users index large-9 medium-8 columns content">
     <div class="table-responsive">
         <table class="table table-bordered table-hover dataTable" cellpadding="0" cellspacing="0">
@@ -37,8 +39,10 @@
                     <td><?php if($user->update_at != null) echo h($user->update_at->i18nFormat('yyyy年MM月dd日')) ?></td>
                     <td class="actions">
                         <span><?php echo $this->Html->Link('<i class="fas fa-desktop"></i> 表示',['action' => 'view', $user->id], ['escape' => false])?></span>
-                        <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $user->id], ['escape' => false])?></span>
-                        <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['action' => 'delete', $user->id], ['confirm' => __('ID{0}を本当に削除しますか？', $user->id),'escape' => false]) ?></span>
+                        <?php if($authuser["role_id"] == 1) :?>
+                            <span><?php echo $this->Html->Link('<i class="fas fa-edit"></i> 編集',['action' => 'edit', $user->id], ['escape' => false])?></span>
+                            <span><?= $this->Form->postLink('<i class="fas fa-trash-alt"></i> 削除', ['action' => 'delete', $user->id], ['confirm' => __('ID{0}を本当に削除しますか？', $user->id),'escape' => false]) ?></span>
+                        <?php endif;?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

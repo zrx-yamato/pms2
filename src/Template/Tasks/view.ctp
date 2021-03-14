@@ -5,6 +5,7 @@
  */
     $this->assign('title', '「' . h($task->title) . '」タスクの詳細');
 ?>
+<?php if($user->role_id != 4) :?> 
 <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
     <!-- 編集 -->
     <?= $this->Html->link('
@@ -17,6 +18,7 @@
         <span class="text">削除</span>',
         ['action' => 'delete', $task->id], ['confirm' => __('タスク名「'.$task->title.'」を本当に削除しますか？', $task->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
+<?php endif ?>
 
 <div class="paginator d-flex justify-content-between mb-2">
     <div>ID:<?= $this->Number->format($task->id) ?></div>

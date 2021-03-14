@@ -20,12 +20,16 @@ class CompaniesController extends AuthController
      */
     public function index()
     {
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
         $this->paginate = [
             'conditions' => ['Companies.is_delete' => 0]
         ];
         $companies = $this->paginate($this->Companies);
 
-        $this->set(compact('companies'));
+        $this->set(compact('companies', 'user'));
     }
 
     /**
@@ -37,11 +41,15 @@ class CompaniesController extends AuthController
      */
     public function view($id = null)
     {
+        //User情報の取得
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
         $company = $this->Companies->get($id, [
             'contain' => ['Personnels', 'Projects']
         ]);
 
-        $this->set('company', $company);
+        $this->set(compact('company', 'user'));
     }
 
     /**

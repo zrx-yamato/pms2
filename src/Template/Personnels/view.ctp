@@ -5,6 +5,7 @@
  */
 	$this->assign('title', '「' . $personnel->name . '」担当者の詳細');
 ?>
+<?php if($user->role_id != 4) :?> 
 <nav class="large-3 medium-4 columns mb-3" id="actions-sidebar">
     <!-- 編集 -->
     <?= $this->Html->link('
@@ -17,6 +18,7 @@
         <span class="text">削除</span>',
         ['action' => 'delete', $personnel->id], ['confirm' => __('担当者名「'.$personnel->name.'」を本当に削除しますか？', $personnel->id), 'class' => 'btn btn-secondary btn-icon-split', 'escape' => false]) ?>
 </nav>
+<?php endif ?>
 <div class="personnels view large-9 medium-8 columns content">
     <table class="table table-striped">
         <tr>
