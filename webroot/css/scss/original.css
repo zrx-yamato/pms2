@@ -33,6 +33,10 @@ label {
   font-weight: normal;
 }
 
+.dataTable tbody .actions {
+  text-align: center;
+}
+
 .pagination li a {
   margin-right: 4px;
   padding: 4px;
