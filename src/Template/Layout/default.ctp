@@ -80,7 +80,7 @@ $cakeDescription = '案件管理システム';
             <!-- Nav Item - Pages Collapse Tasks -->
             <li class="nav-item">
                 <a class="nav-link" href="/pms2/Tasks/">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="fas fa-tasks"></i>
                     <span>タスク</span></a>
             </li>
             
