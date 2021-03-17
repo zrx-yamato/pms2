@@ -11,7 +11,7 @@
         <?php
             echo $this->Form->control('title', ['label' => '見積もり名', 'class' => 'form-control']);
             echo $this->Form->control('document', ['label' => '概要', 'class' => 'form-control']);
-            echo $this->Form->control('price', ['label' => '見積もり価格', 'class' => 'form-control']);
+            echo $this->Form->control('price', ['label' => '見積もり価格', 'id' => 'price', 'class' => 'form-control mb-1']), '<span id="test"></span>';
             echo $this->Form->control('project_id', ['options' => $projects, 'label' => '関連プロジェクト名', 'class' => 'w-auto form-control']);
             echo $this->Form->control('status_id', ['options' => $statuses, 'label' => 'ステータス', 'class' => 'w-auto form-control']);
         ?>
