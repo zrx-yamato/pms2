@@ -32,80 +32,69 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [{
-      label: "Revenue",
-      backgroundColor: "#4e73df",
-      hoverBackgroundColor: "#2e59d9",
-      borderColor: "#4e73df",
-      data: [4215, 5312, 6251, 7841, 9821, 14984],
-    }],
+    labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月", "未定請求月"],
+    datasets: [
+      {
+        label: "請求額",
+        backgroundColor: "#4e73df",
+        hoverBackgroundColor: "#2e59d9",
+        borderColor: "#4e73df",
+        data: [sum_January, sum_February, sum_March, sum_April, sum_May, sum_June, sum_July, sum_August, sum_September, sum_October, sum_November, sum_December, sum_Predicted],
+      },
+      {
+        label: '見込額',
+        backgroundColor: "#ccc",
+        hoverBackgroundColor: "#bbb",
+        borderColor: "#4e73df",
+        data: [predicted_January, predicted_February, predicted_March, predicted_April, predicted_May, predicted_June, predicted_July, predicted_August, predicted_September, predicted_October, predicted_November, predicted_December, predicted_Month],
+      },
+    ],
   },
   options: {
     maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
     scales: {
-      xAxes: [{
-        time: {
-          unit: 'month'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 6
-        },
-        maxBarThickness: 25,
-      }],
-      yAxes: [{
-        ticks: {
-          min: 0,
-          max: 15000,
-          maxTicksLimit: 5,
-          padding: 10,
-          // Include a dollar sign in the ticks
-          callback: function(value, index, values) {
-            return '$' + number_format(value);
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(234, 236, 244)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
+        xAxes: [{
+              stacked: true, //積み上げ棒グラフにする設定
+              categoryPercentage:0.4 //棒グラフの太さ
+        }],
+        yAxes: [{
+              stacked: true, //積み上げ棒グラフにする設定
+              ticks: {
+                maxTicksLimit: 5,
+                padding: 10,
+                // Include a dollar sign in the ticks
+                callback: function(value, index, values) {
+                  return '￥' + number_format(value);
+                }
+              },
+        }]
     },
     legend: {
-      display: false
+        labels: {
+              boxWidth:30,
+              padding:20 //凡例の各要素間の距離
+        },
+        display: true
     },
-    tooltips: {
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
+    tooltips:{
+      mode:'label', //マウスオーバー時に表示されるtooltip
       callbacks: {
-        label: function(tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+        label: function(tooltipItem, data) {
+          var datasetLabel = data.datasets[tooltipItem.datasetIndex].label;
+
+          // Loop through all datasets to get the actual total of the index
+          var total = 0;
+          for (var i = 0; i < data.datasets.length; i++)
+              total += data.datasets[i].data[tooltipItem.index];
+  
+          // If it is not the last dataset, you display it as you usually do
+          if (tooltipItem.datasetIndex != data.datasets.length - 1) {
+              return datasetLabel + " : ￥" + number_format(tooltipItem.yLabel);
+          } else { // .. else, you display the dataset and the total, using an array
+              return [datasetLabel + " : ￥" + number_format(tooltipItem.yLabel), "合計　 : ￥" + number_format(total)];
+          }
         }
       }
-    },
+    }
   }
 });

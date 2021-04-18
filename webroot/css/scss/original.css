@@ -37,6 +37,18 @@ label {
   text-align: center;
 }
 
+.dataTable tbody tr.done {
+  background: #ecf4ff;
+}
+
+.dataTable tbody tr.billed {
+  background: #ffecef;
+}
+
+.dataTable tbody tr:hover {
+  background: #fff7ec;
+}
+
 .pagination li a {
   margin-right: 4px;
   padding: 4px;
@@ -55,7 +67,12 @@ label {
   border-radius: 0.15rem;
 }
 
+#select_status {
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
 .estimates #test {
-  padding-left: 12px;
+  padding-left: 20px;
 }
 /*# sourceMappingURL=original.css.map */

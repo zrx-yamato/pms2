@@ -291,13 +291,11 @@ $cakeDescription = '案件管理システム';
     <!-- Custom scripts for all pages-->
     <?= $this->Html->script('sb-admin-2.min') ?>
     <?= $this->Html->script('original') ?>
-
+    
     <!-- Page level plugins -->
-    <?php //$this->Html->script('vendor/chart.js/Chart.min') ?>
+    <script src="/pms2/js/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <?php //$this->Html->script('demo/chart-area-demo.js') ?>
-    <?php //$this->Html->script('demo/chart-pie-demo.js') ?>
-
+    <script src="/pms2/js/demo/chart-bar-demo.js"></script>
 </body>
 </html>

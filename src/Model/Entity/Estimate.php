@@ -43,6 +43,7 @@ class Estimate extends Entity
         'add_user_id' => true,
         'update_user_id' => true,
         'status_id' => true,
+        'fix_month' => true,
         'is_delete' => true,
         'create_at' => true,
         'update_at' => true,

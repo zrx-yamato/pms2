@@ -32,6 +32,15 @@ label{
         .actions{
             text-align: center;
         }
+        tr.done{
+            background: #ecf4ff;
+        }
+        tr.billed{
+            background: #ffecef;
+        }
+        tr:hover{
+            background: #fff7ec;
+        }
     }
 }
 .pagination{
@@ -62,6 +71,10 @@ label{
 // ------------------
 // estimates見積もりページ
 // ------------------
+#select_status{
+    border: 1px solid #333;
+    border-radius: 4px;
+}
 .estimates #test{
     padding-left: 20px;
 }
